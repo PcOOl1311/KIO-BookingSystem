@@ -13,4 +13,6 @@ module edu.acg.kio.kiobookingsystem {
 
     opens edu.acg.kio.kiobookingsystem to javafx.fxml;
     exports edu.acg.kio.kiobookingsystem;
+    exports edu.acg.kio.kiobookingsystem.classs;
+    opens edu.acg.kio.kiobookingsystem.classs to javafx.fxml;
 }
