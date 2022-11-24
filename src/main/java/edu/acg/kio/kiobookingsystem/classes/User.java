@@ -57,10 +57,10 @@ public class User {
     @Override
     public String toString() {
         return "------------------------------------" + " \n" +
-                " Name     = " + name + " \n" +
-                " Password = " + password + " \n" +
+                " Name           = " + name + " \n" +
+                " Password       = " + password + " \n" +
                 " Contact Info:  = " + contactInfo + " \n" +
-                " User Type  = " + userType + " \n" +
+                " User Type      = " + userType + " \n" +
                 "------------------------------------";
     }
 }
