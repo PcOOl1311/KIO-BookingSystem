@@ -1,4 +1,7 @@
 package edu.acg.kio.kiobookingsystem.functions;
 
-public class DrinkManagment {
+public class UserManagement {
+
+
+
 }
