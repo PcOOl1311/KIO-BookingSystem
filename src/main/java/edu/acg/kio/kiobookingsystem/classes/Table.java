@@ -1,4 +1,4 @@
-package edu.acg.kio.kiobookingsystem.classs;
+package edu.acg.kio.kiobookingsystem.classes;
 
 import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;

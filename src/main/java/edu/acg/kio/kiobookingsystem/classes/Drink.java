@@ -1,4 +1,4 @@
-package edu.acg.kio.kiobookingsystem.classs;
+package edu.acg.kio.kiobookingsystem.classes;
 
 public class Drink {
     private String name;

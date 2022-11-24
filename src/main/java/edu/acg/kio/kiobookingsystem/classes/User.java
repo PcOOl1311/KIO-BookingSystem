@@ -1,4 +1,4 @@
-package edu.acg.kio.kiobookingsystem.classs;
+package edu.acg.kio.kiobookingsystem.classes;
 
 
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
@@ -10,6 +10,8 @@ public class User {
     private String contactInfo;
     private UserType userType;
 
+
+    // CONSTRUCTOR
     public User(String name, String password, String contactInfo, UserType userType) {
         this.name = name;
         this.password = password;
@@ -17,7 +19,8 @@ public class User {
         this.userType = userType;
     }
 
-    //Getters
+    // GETTER
+
     public String getName() {
         return name;
     }
@@ -34,7 +37,7 @@ public class User {
         return userType;
     }
 
-    //Setters
+    // SETTERS
     public void setName(String name) {
         this.name = name;
     }
@@ -53,11 +56,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", contactInfo='" + contactInfo + '\'' +
-                ", userType=" + userType +
-                '}';
+        return "------------------------------------" + " \n" +
+                " Name     = " + name + " \n" +
+                " Password = " + password + " \n" +
+                " Contact Info:  = " + contactInfo + " \n" +
+                " User Type  = " + userType + " \n" +
+                "------------------------------------";
     }
 }
