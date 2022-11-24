@@ -60,6 +60,11 @@ public class Reservation {
                 ", day='" + day + '\'' +
                 '}';
     }
+
+    public  String toFile(){
+        return reservee + "," + table + "," + timeslot + "," + day + "\n";
+    }
+
 }
 
 
