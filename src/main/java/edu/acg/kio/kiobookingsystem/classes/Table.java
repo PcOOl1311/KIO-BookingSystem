@@ -11,36 +11,22 @@ public class Table {
     private TableSlot tableSlot2;
 
 
-    // CONSTRUCTOR //
-
-
-
-    // RETURN VALUES  //
-    @Override
-    public String toString() {
-        return "------------------------------------" + " \n" +
-                " Table Type      = " + type + " \n" +
-                " Minimum Drinks  = " + minDrinks + " \n" +
-                " Customer Slot 1 = " + minDrinks + " \n" +
-                " Customer Slot 2 = " + minDrinks + " \n" +
-                " Drinks Slot 1   = " + minDrinks + " \n" +
-                " Drinks Slot 2" + minDrinks + " \n" +
-                " Price  = " + minDrinks + " \n" +
-                "------------------------------------";
-    }
-
-
-    public Table(TableType type, int minDrinks, User customer1, User customer2, Drink drink1, Drink drink2, TimeSlot timeSlot) {
+    // CONSTRUCTORS //
+    public Table(TableType type, int minDrinks, int maxPeople, TableSlot tableSlot1, TableSlot tableSlot2) {
         this.type = type;
         this.minDrinks = minDrinks;
-        Customer1 = customer1;
-        Customer2 = customer2;
-        Drink1 = drink1;
-        Drink2 = drink2;
-        this.timeSlot = timeSlot;
+        this.maxPeople = maxPeople;
+        this.tableSlot1 = tableSlot1;
+        this.tableSlot2 = tableSlot2;
     }
 
-    //Getters
+    public Table(TableType type) {
+        this.type = type;
+    }
+
+    // GETTER //
+
+
     public TableType getType() {
         return type;
     }
@@ -49,27 +35,20 @@ public class Table {
         return minDrinks;
     }
 
-    public User getCustomer1() {
-        return Customer1;
+    public int getMaxPeople() {
+        return maxPeople;
     }
 
-    public User getCustomer2() {
-        return Customer2;
+    public TableSlot getTableSlot1() {
+        return tableSlot1;
     }
 
-    public Drink getDrink1() {
-        return Drink1;
+    public TableSlot getTableSlot2() {
+        return tableSlot2;
     }
 
-    public Drink getDrink2() {
-        return Drink2;
-    }
+    // SETTERS //
 
-    public TimeSlot getTimeSlot() {
-        return timeSlot;
-    }
-
-    //Setters
     public void setType(TableType type) {
         this.type = type;
     }
@@ -78,36 +57,31 @@ public class Table {
         this.minDrinks = minDrinks;
     }
 
-    public void setCustomer1(User customer1) {
-        Customer1 = customer1;
+    public void setMaxPeople(int maxPeople) {
+        this.maxPeople = maxPeople;
     }
 
-    public void setCustomer2(User customer2) {
-        Customer2 = customer2;
+    public void setTableSlot1(TableSlot tableSlot1) {
+        this.tableSlot1 = tableSlot1;
     }
 
-    public void setDrink1(Drink drink1) {
-        Drink1 = drink1;
-    }
-
-    public void setDrink2(Drink drink2) {
-        Drink2 = drink2;
-    }
-
-    public void setTimeSlot(TimeSlot timeSlot) {
-        this.timeSlot = timeSlot;
+    public void setTableSlot2(TableSlot tableSlot2) {
+        this.tableSlot2 = tableSlot2;
     }
 
     @Override
     public String toString() {
-        return "Table{" +
-                "type=" + type +
-                ", minDrinks=" + minDrinks +
-                ", Customer1=" + Customer1 +
-                ", Customer2=" + Customer2 +
-                ", Drink1=" + Drink1 +
-                ", Drink2=" + Drink2 +
-                ", timeSlot=" + timeSlot +
-                '}';
+        return "------------------------------------" + " \n" +
+                " Table Type           = " + type + " \n" +
+                " Minimum Drinks       = " + minDrinks + " \n" +
+                " Max amount of People = " + maxPeople + " \n" +
+                " Table Slot 1         = " + tableSlot1 + " \n" +
+                " Table Slot 2         = " + tableSlot2 + " \n" +
+                "------------------------------------";
     }
+    public String toFile(){
+        return type + "," + minDrinks + "," + maxPeople + "," + tableSlot1 + "," + tableSlot2 + "\n";
+
+    }
+
 }

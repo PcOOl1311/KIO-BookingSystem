@@ -11,7 +11,7 @@ public class User {
     private UserType userType;
 
 
-    // CONSTRUCTOR
+    // CONSTRUCTOR //
     public User(String name, String password, String contactInfo, UserType userType) {
         this.name = name;
         this.password = password;
