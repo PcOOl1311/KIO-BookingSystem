@@ -53,12 +53,11 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "reservee=" + reservee +
-                ", table=" + table +
-                ", timeslot=" + timeslot +
-                ", day='" + day + '\'' +
-                '}';
+        return "------------------------------------" + " \n\n" +
+                " Reservee         = " + reservee.getName() + " \n" +
+                " Table            = " + table.getTableName() + " \n" +
+                " Timeslot         = " + timeslot + " \n" +
+                " Day              = " + day + " \n";
     }
 
     public  String toFile(){

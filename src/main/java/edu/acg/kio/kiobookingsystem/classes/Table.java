@@ -4,6 +4,7 @@ import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 
 public class Table {
+    private String tableName;
     private TableType type;
     private int minDrinks;
     private int maxPeople;
@@ -12,7 +13,8 @@ public class Table {
 
 
     // CONSTRUCTORS //
-    public Table(TableType type, int minDrinks, int maxPeople, TableSlot tableSlot1, TableSlot tableSlot2) {
+    public Table(String tableName,TableType type, int minDrinks, int maxPeople, TableSlot tableSlot1, TableSlot tableSlot2) {
+        this.tableName = tableName;
         this.type = type;
         this.minDrinks = minDrinks;
         this.maxPeople = maxPeople;
@@ -20,12 +22,24 @@ public class Table {
         this.tableSlot2 = tableSlot2;
     }
 
-    public Table(TableType type) {
+    public Table(String tableName, TableType type) {
+        this.tableName = tableName;
         this.type = type;
+        if (type.equals(TableType.VIP)){
+            this.minDrinks = 3;
+            this.maxPeople = 8;
+        }
+        this.tableSlot1 = null;
+        this.tableSlot2 = null;
+
     }
 
     // GETTER //
 
+
+    public String getTableName() {
+        return tableName;
+    }
 
     public TableType getType() {
         return type;
@@ -49,6 +63,11 @@ public class Table {
 
     // SETTERS //
 
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
     public void setType(TableType type) {
         this.type = type;
     }
@@ -71,16 +90,16 @@ public class Table {
 
     @Override
     public String toString() {
-        return "------------------------------------" + " \n" +
+        return "------------------------------------" + " \n\n" +
+                " Table Name           = " + tableName + " \n" +
                 " Table Type           = " + type + " \n" +
                 " Minimum Drinks       = " + minDrinks + " \n" +
                 " Max amount of People = " + maxPeople + " \n" +
-                " Table Slot 1         = " + tableSlot1 + " \n" +
-                " Table Slot 2         = " + tableSlot2 + " \n" +
-                "------------------------------------";
+                " Table Slot 1         = " + tableSlot1.getCustomer().getName() + " \n" +
+                " Table Slot 2         = " + tableSlot2.getCustomer().getName() + " \n" ;
     }
     public String toFile(){
-        return type + "," + minDrinks + "," + maxPeople + "," + tableSlot1 + "," + tableSlot2 + "\n";
+        return tableName+ "," +type + "," + minDrinks + "," + maxPeople + "," + tableSlot1 + "," + tableSlot2 + "\n";
 
     }
 

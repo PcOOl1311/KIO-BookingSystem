@@ -2,10 +2,10 @@ package edu.acg.kio.kiobookingsystem.classes;
 
 public class Drink {
     private String name;
-    private Float price;
+    private double price;
 
     // CONSTRUCTOR //
-    public Drink(String name, Float price) {
+    public Drink(String name, double price) {
         this.name = name;
         this.price = price;
     }
@@ -15,7 +15,7 @@ public class Drink {
         return name;
     }
 
-    public Float getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -24,17 +24,16 @@ public class Drink {
         this.name = name;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
     // RETURN VALUES  //
     @Override
     public String toString() {
-        return "------------------------------------" + " \n" +
+        return "------------------------------------" + " \n\n" +
                 " Name   = " + name + " \n" +
-                " Price  = " + price + " \n" +
-                "------------------------------------";
+                " Price  = " + price + " \n" ;
     }
 
     public  String toFile(){

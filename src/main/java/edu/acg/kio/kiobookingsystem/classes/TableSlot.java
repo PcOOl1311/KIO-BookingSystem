@@ -62,12 +62,11 @@ public class TableSlot {
 
     @Override
     public String toString() {
-        return "------------------------------------" + " \n" +
+        return "------------------------------------" + " \n\n" +
                 " Time Slot        = " + timeSlot + " \n" +
-                " Costumer         = " + customer + " \n" +
-                " Drinks           = " + drink + " \n" +
-                " Amount Of People = " + amountOfPeople + " \n" +
-                "------------------------------------";
+                " Costumer         = " + customer.getName() + " \n" +
+                " Drinks           = " + drink.getName() + " \n" +
+                " Amount Of People = " + amountOfPeople + " \n";
     }
 
     public String toFile(){
