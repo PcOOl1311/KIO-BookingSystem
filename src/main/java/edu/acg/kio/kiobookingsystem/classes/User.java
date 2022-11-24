@@ -19,7 +19,7 @@ public class User {
         this.userType = userType;
     }
 
-    // GETTER
+    // GETTER //
 
     public String getName() {
         return name;
@@ -37,7 +37,7 @@ public class User {
         return userType;
     }
 
-    // SETTERS
+    // SETTERS //
     public void setName(String name) {
         this.name = name;
     }
@@ -62,5 +62,9 @@ public class User {
                 " Contact Info:  = " + contactInfo + " \n" +
                 " User Type      = " + userType + " \n" +
                 "------------------------------------";
+    }
+
+    public  String toFile(){
+        return name + "," + password + "," + contactInfo + "," + userType + "\n";
     }
 }
