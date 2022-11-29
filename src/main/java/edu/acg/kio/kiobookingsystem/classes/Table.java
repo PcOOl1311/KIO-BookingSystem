@@ -1,7 +1,6 @@
 package edu.acg.kio.kiobookingsystem.classes;
 
 import edu.acg.kio.kiobookingsystem.enumerators.TableType;
-import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 
 public class Table {
     private String tableName;
@@ -13,7 +12,7 @@ public class Table {
 
 
     // CONSTRUCTORS //
-    public Table(String tableName,TableType type, int minDrinks, int maxPeople, TableSlot tableSlot1, TableSlot tableSlot2) {
+    public Table(String tableName, TableType type, int minDrinks, int maxPeople, TableSlot tableSlot1, TableSlot tableSlot2) {
         this.tableName = tableName;
         this.type = type;
         this.minDrinks = minDrinks;
@@ -25,10 +24,19 @@ public class Table {
     public Table(String tableName, TableType type) {
         this.tableName = tableName;
         this.type = type;
-        if (type.equals(TableType.VIP)){
+        if (type.equals(TableType.NORMAL)){
+            this.minDrinks = 2;
+            this.maxPeople = 8;
+        }
+        else if (type.equals(TableType.VIP)) {
             this.minDrinks = 3;
             this.maxPeople = 8;
         }
+        else if (type.equals(TableType.BACKSTAGE)) {
+            this.minDrinks = 5;
+            this.maxPeople = 12;
+        }
+
         this.tableSlot1 = null;
         this.tableSlot2 = null;
 
@@ -96,10 +104,11 @@ public class Table {
                 " Minimum Drinks       = " + minDrinks + " \n" +
                 " Max amount of People = " + maxPeople + " \n" +
                 " Table Slot 1         = " + tableSlot1.getCustomer().getName() + " \n" +
-                " Table Slot 2         = " + tableSlot2.getCustomer().getName() + " \n" ;
+                " Table Slot 2         = " + tableSlot2.getCustomer().getName() + " \n";
     }
-    public String toFile(){
-        return tableName+ "," +type + "," + minDrinks + "," + maxPeople + "," + tableSlot1 + "," + tableSlot2 + "\n";
+
+    public String toFile() {
+        return tableName + "," + type + "," + minDrinks + "," + maxPeople + "," + tableSlot1 + "," + tableSlot2 + "\n";
 
     }
 
