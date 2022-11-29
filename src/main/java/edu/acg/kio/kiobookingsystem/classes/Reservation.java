@@ -1,16 +1,17 @@
 package edu.acg.kio.kiobookingsystem.classes;
 
+import edu.acg.kio.kiobookingsystem.enumerators.Days;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 
 public class Reservation {
     private User reservee;
     private Table table;
     private TimeSlot timeslot;
-    private String day; //TODO find a data type for day
+    private Days day;
 
     //Constructor
 
-    public Reservation(User reservee, Table table, TimeSlot timeslot, String day) {
+    public Reservation(User reservee, Table table, TimeSlot timeslot, Days day) {
         this.reservee = reservee;
         this.table = table;
         this.timeslot = timeslot;
@@ -30,7 +31,7 @@ public class Reservation {
         return timeslot;
     }
 
-    public String getDay() {
+    public Days getDay() {
         return day;
     }
 
@@ -47,7 +48,7 @@ public class Reservation {
         this.timeslot = timeslot;
     }
 
-    public void setDay(String day) {
+    public void setDay(Days day) {
         this.day = day;
     }
 
