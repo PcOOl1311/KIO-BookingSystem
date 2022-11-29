@@ -4,13 +4,18 @@ import edu.acg.kio.kiobookingsystem.classes.*;
 import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
+import edu.acg.kio.kiobookingsystem.functions.DrinkManagement;
+import edu.acg.kio.kiobookingsystem.functions.UserManagement;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 
 public class TestingFunctions {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws FileNotFoundException {
 
         //TESTING ALL CLASSES
+        /*
         Drink d1 = new Drink("vodka",90.2 );
         System.out.println(d1);
 
@@ -25,7 +30,15 @@ public class TestingFunctions {
 
         Reservation r1= new Reservation(u1,t1,TimeSlot.LATE,"Monday");
         System.out.println(r1);
+        */
+
+
+        ArrayList<Drink> drinks = DrinkManagement.readFromFiles();
+        System.out.println(drinks);
+        ArrayList<User> users = UserManagement.readFromFiles();
+        System.out.println(users);
     }
+
 
 
 }
