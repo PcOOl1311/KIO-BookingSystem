@@ -1,5 +1,6 @@
 package edu.acg.kio.kiobookingsystem.classes;
 
+import edu.acg.kio.kiobookingsystem.enumerators.Days;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 
 public class TableSlot {
@@ -8,24 +9,27 @@ public class TableSlot {
     private User customer;
     private Drink drink;
     private int amountOfPeople;
+    private Days day;
 
 
     // CONSTRUCTOR //
 
-    public TableSlot(String tableName, TimeSlot timeSlot, User customer, Drink drink, int amountOfPeople) {
+    public TableSlot(String tableName, TimeSlot timeSlot, User customer, Drink drink, int amountOfPeople,Days day) {
         this.tableName = tableName;
         this.timeSlot = timeSlot;
         this.customer = customer;
         this.drink = drink;
         this.amountOfPeople = amountOfPeople;
+        this.day = day;
     }
 
-    public TableSlot(String tableName, TimeSlot timeSlot) {
+    public TableSlot(String tableName, TimeSlot timeSlot,Days day) {
         this.tableName = tableName;
         this.timeSlot = timeSlot;
         this.customer = null;
         this.drink = null;
         this.amountOfPeople = 0;
+        this.day = day;
     }
 
     // GETTERS //
@@ -50,6 +54,9 @@ public class TableSlot {
         return amountOfPeople;
     }
 
+    public Days getDay() {
+        return day;
+    }
     // SETTERS //
 
     public void setTableName(String tableName) {
@@ -72,6 +79,10 @@ public class TableSlot {
         this.amountOfPeople = amountOfPeople;
     }
 
+    public void setDay(Days day) {
+        this.day = day;
+    }
+
     @Override
     public String toString() {
         return "------------------------------------" + " \n\n" +
@@ -79,11 +90,12 @@ public class TableSlot {
                 " Time Slot        = " + timeSlot + " \n" +
                 " Costumer         = " + customer.getName() + " \n" +
                 " Drinks           = " + drink.getName() + " \n" +
-                " Amount Of People = " + amountOfPeople + " \n";
+                " Amount Of People = " + amountOfPeople + " \n" +
+                " Day = " + day.toString() + " \n";
     }
 
     public String toFile() {
-        return tableName + "," + timeSlot + "," + customer.getName() + "," + drink.getName() + "," + amountOfPeople + "\n";
+        return tableName + "," + timeSlot + "," + customer.getName() + "," + drink.getName() + "," + amountOfPeople + day.toString()+ "\n";
 
     }
 }

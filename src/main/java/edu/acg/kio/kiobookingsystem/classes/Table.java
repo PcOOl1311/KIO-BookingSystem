@@ -105,6 +105,7 @@ public class Table {
                 " Max amount of People = " + maxPeople + " \n" +
                 " Table Slot 1         = " + tableSlot1.getCustomer().getName() + " \n" +
                 " Table Slot 2         = " + tableSlot2.getCustomer().getName() + " \n";
+
     }
 
     public String toFile() {

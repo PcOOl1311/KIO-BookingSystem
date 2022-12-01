@@ -5,11 +5,15 @@ import edu.acg.kio.kiobookingsystem.enumerators.*;
 import edu.acg.kio.kiobookingsystem.functions.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
 
 
 public class TestingFunctions {
-    public static void main(String[] args) throws FileNotFoundException {
+    static String pathName = "files/tables.csv";
+    public static void main(String[] args) throws IOException {
 
         //TESTING ALL CLASSES
         /*
@@ -30,10 +34,15 @@ public class TestingFunctions {
         */
 
 
-        ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
-        System.out.println(drinks);
-        ArrayList<User> users = UserManagement.readUsersFromFile();
-        System.out.println(users);
+       // ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
+       // System.out.println(drinks);
+        //ArrayList<User> users = UserManagement.readUsersFromFile();
+        //System.out.println(users);
+        //ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
+        //System.out.println(tableSLots);
+        //ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
+        copyFile();
+
     }
 
 

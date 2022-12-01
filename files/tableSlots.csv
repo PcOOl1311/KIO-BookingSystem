@@ -1,0 +1,43 @@
+b0001,EARLY,Bertina Gosnoll,Premium Rum,4,MONDAY
+b0001,LATE,Bertina Gosnoll,Premium Gin,2,TUESDAY
+b0002,EARLY,Giolena Kokorou,Vodka,12,WEDNESDAY
+b0002,LATE,Giolena Kokorou,Tequila,3,THURSDAY
+b0003,EARLY,Bibi Worwood,Vodka,8,FRIDAY
+b0003,LATE,Nonna Shilstone,Whiskey,2,SATURDAY
+b0004,EARLY,Jacky Sisland,Premium Whiskey,4,SUNDAY
+b0004,LATE,Jane Gabby,Premium Gin,2,MONDAY
+n0004,EARLY,Katha Duncklee,Premium Rum,5,TUESDAY
+n0004,LATE,Bertina Gosnoll,Whiskey,8,WEDNESDAY
+n0005,EARLY,Hally Amoss,Premium Gin,6,THURSDAY
+n0005,LATE,Debby Fieller,Tequila,1,FRIDAY
+n0006,EARLY,Dori Smitheman,Premium Vodka,5,SATURDAY
+n0006,LATE,Sib Maving,Vodka,4,SUNDAY
+n0007,EARLY,Thekla Diament,Premium Vodka,5,MONDAY
+n0007,LATE,Keeley Wellen,Vodka,4,TUESDAY
+n0008,EARLY,Shoshana Delieu,Gin,3,WEDNESDAY
+n0008,LATE,Robbyn McMeekin,Premium Gin,2,THURSDAY
+n0011,EARLY,Katha Duncklee,Premium Whiskey,8,FRIDAY
+n0009,LATE,Yoshi Webb-Bowen,Premium Gin,8,SATURDAY
+n0010,EARLY,Belia Kaygill,Gin,7,SUNDAY
+n0012,EARLY,Lynnette Songest,Premium Rum,2,MONDAY
+n0012,LATE,Fanchon Chooter,Tequila,5,TUESDAY
+n0013,EARLY,Isabella Tregonna,Premium Whiskey,3,WEDNESDAY
+n0013,LATE,Giovanna Girod,Whiskey,1,THURSDAY
+n0014,EARLY,Mimi Voelker,Gin,6,FRIDAY
+n0014,LATE,Nell Petyanin,Premium Rum,7,SATURDAY
+n0015,EARLY,Chiarra Robshaw,Premium Gin,2,SUNDAY
+v0002,LATE,Fanchon Chooter,Gin,2,MONDAY
+v0003,EARLY,Isabella Tregonna,Vodka,8,TUESDAY
+v0003,LATE,Giovanna Girod,Premium Tequila,1,WEDNESDAY
+v0004,EARLY,Monique Bolton,Vodka,5,THURSDAY
+v0004,LATE,Lynnette Songest,Premium Vodka,7,FRIDAY
+v0005,EARLY,Fanchon Chooter,Premium Whiskey,8,SATURDAY
+v0005,LATE,Isabella Tregonna,Vodka,2,SUNDAY
+v0006,EARLY,Giovanna Girod,Tequila,1,MONDAY
+v0006,LATE,Mimi Voelker,Premium Gin,5,TUESDAY
+v0007,EARLY,Nell Petyanin,Premium Whiskey,3,WEDNESDAY
+v0007,LATE,Chiarra Robshaw,Tequila,1,THURSDAY
+v0008,EARLY,Ilyse Aimson,Premium Gin,8,FRIDAY
+v0008,LATE,Arden Bolens,Gin,4,SATURDAY
+v0009,EARLY,Gabi Pulford,Vodka,2,SUNDAY
+v0009,LATE,Pearla Court,Premium Rum,7,MONDAY

@@ -4,20 +4,22 @@ import edu.acg.kio.kiobookingsystem.classes.Drink;
 import edu.acg.kio.kiobookingsystem.classes.Table;
 import edu.acg.kio.kiobookingsystem.classes.TableSlot;
 import edu.acg.kio.kiobookingsystem.classes.User;
+import edu.acg.kio.kiobookingsystem.enumerators.Days;
 import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.*;
 
 import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.*;
 import static edu.acg.kio.kiobookingsystem.functions.UserManagement.*;
 
 public class TableManagement {
+    private static String HOME = System.getProperty("user.home");
 
     public static Table searchTable(String searchTerm,ArrayList<Table> array){
         Table temp = null;
@@ -26,42 +28,42 @@ public class TableManagement {
         }
         return temp;
     }
-    public static ArrayList<Table> searchTables(String searchTerm,ArrayList<Table> array){
-        ArrayList<Table> temp = null;
+    public static ArrayList<TableSlot> searchTables(String searchTerm,ArrayList<TableSlot> array){
+        ArrayList<TableSlot> temp = null;
         searchTerm = searchTerm.toLowerCase(Locale.ROOT);
         if(searchTerm == null || searchTerm.equals(" ") || searchTerm.equals("")){
             return temp;
         }
         else if(searchTerm.equals("all")){
-            for(Table t : array){
+            for(TableSlot t : array){
                 assert false;
                 temp.add(t);
             }
         }
         else if(searchTerm.equals("empty")){
-            for(Table t : array){
-                if(t.getTableSlot1()==null || t.getTableSlot1().getCustomer()==null){
+            for(TableSlot t : array){
+                if(t ==null || t.getCustomer()==null){
                     temp.add(t);
                 }
-                if(t.getTableSlot2()==null || t.getTableSlot2().getCustomer()==null){
+                if(t==null || t.getCustomer()==null){
                     temp.add(t);
                 }
             }
 
         }
         else if(searchTerm.equals("full")){  // We check if the Customer Object Exists in the Table
-            for(Table t : array){
-                if(t.getTableSlot1().getCustomer()!=null){
+            for(TableSlot t : array){
+                if(t.getCustomer()!=null){
                     temp.add(t);
                 }
-                if(t.getTableSlot2().getCustomer()!=null){
+                if(t.getCustomer()!=null){
                     temp.add(t);
                 }
             }
 
         }
         else{
-            for(Table t: array){
+            for(TableSlot t: array){
                 if(t.getTableName().equals(searchTerm)) {
                     assert false;
                     temp.add(t);
@@ -82,8 +84,9 @@ public class TableManagement {
         User customer;
         Drink drink;
         int amountOfPeople;
+        Days day = null;
 
-        Scanner inputTS = new Scanner(new File("tables.csv"));
+        Scanner inputTS = new Scanner(new File("files/tableSlots.csv"));
 
         while ((inputTS.hasNext())){
             String[] TableSlots = inputTS.nextLine().split(",");
@@ -93,7 +96,14 @@ public class TableManagement {
             customer = searchUser(TableSlots[2],usersArray);
             drink = searchDrink(TableSlots[3],drinks);
             amountOfPeople = Integer.parseInt(TableSlots[4]);
-            TableSlot ts = new TableSlot(tableName,timeSlot,customer,drink,amountOfPeople);
+            if(Objects.equals(TableSlots[5],"MONDAY")) day = Days.MONDAY;
+            else if(Objects.equals(TableSlots[5],"TUESDAY")) day = Days.TUESDAY;
+            else if(Objects.equals(TableSlots[5],"WEDNESDAY")) day = Days.WEDNESDAY;
+            else if(Objects.equals(TableSlots[5],"THURSDAY")) day = Days.THURSDAY;
+            else if(Objects.equals(TableSlots[5],"FRIDAY")) day = Days.FRIDAY;
+            else if(Objects.equals(TableSlots[5],"SATURDAY")) day = Days.SATURDAY;
+            else if(Objects.equals(TableSlots[5],"SUNDAY")) day = Days.SUNDAY;
+            TableSlot ts = new TableSlot(tableName,timeSlot,customer,drink,amountOfPeople,day);
             tablesSlotArray.add(ts);
         }
 
@@ -102,7 +112,7 @@ public class TableManagement {
         return tablesSlotArray;
     }
 
-    public static ArrayList<Table> readTableFromFile() throws FileNotFoundException {
+    public static ArrayList<Table> readTableFromFile(String pathName) throws FileNotFoundException {
         ArrayList<Table> tablesArray = new ArrayList<>();
         String tableName;
         TableType type;
@@ -111,7 +121,7 @@ public class TableManagement {
         TableSlot tableSlot1;
         TableSlot tableSlot2;
 
-        Scanner inputT = new Scanner(new File("tables.csv"));
+        Scanner inputT = new Scanner(new File(pathName));
 
         while (inputT.hasNext()) {
             String[] Tables = inputT.nextLine().split(",");
@@ -127,23 +137,10 @@ public class TableManagement {
             else type = TableType.UNASSIGNED;
             minDrinks = Integer.parseInt(Tables[2]);
             maxPeople = Integer.parseInt(Tables[3]);
+            tableSlot1 = null;
+            tableSlot2 = null;
 
-            if (Tables[4] == null) // IF TABLE SLOT IS EMPTY THEN IT IS NULL
-            {
-                tableSlot1 = new TableSlot(tableName, TimeSlot.EARLY);
-            }
-            else {
-                tableSlot1 = null;
-                // TODO tableSlot1 = searchTableSlot(TableName,Tables[4])
-            }
-            if (Tables[5] == null) // IF TABLE SLOT IS EMPTY THEN IT IS NULL
-            {
-                tableSlot2 = new TableSlot(tableName, TimeSlot.LATE);
-            }
-            else {
-                tableSlot2 = null;
-                //TODO tableSlot2 = searchTableSlot(TableName,Tables[4])
-            }
+
             Table table = new Table(tableName,type,minDrinks,maxPeople,tableSlot1,tableSlot2);
             tablesArray.add(table);
         }
@@ -152,6 +149,43 @@ public class TableManagement {
     }
 
 
+    public static ArrayList<Table> Reservations(Days Day){
+        ArrayList<Table> tablesArray = new ArrayList<>();
+        String tableName;
+        TableType type;
+        int minDrinks;
+        int maxPeople;
+        TableSlot tableSlot1;
+        TableSlot tableSlot2;
+
+
+
+
+        return tablesArray;
+    }
+
+    public static void copyFile() throws IOException {
+        String[] days ={"M","T","W","R","F","ST","SU"};
+
+        File directory =new File("files/tablesPerWeek");
+        FileUtils.cleanDirectory(directory);
+
+        File originalFile = new File("files/tables.csv");
+
+        for(String d:days){
+            String pathName = "files/tablesPerWeek/tables" + d + ".csv";
+            File newFile = new File(pathName);
+            try{
+                Files.copy(originalFile.toPath(),newFile.toPath());
+            }
+            catch (Exception e){
+                System.out.println("Error");
+
+            }
+
+        }
+
+    }
 
 
 }

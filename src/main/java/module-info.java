@@ -10,6 +10,7 @@ module edu.acg.kio.kiobookingsystem {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires javafx.graphics;
+    requires org.apache.commons.io;
 
     opens edu.acg.kio.kiobookingsystem to javafx.fxml;
     exports edu.acg.kio.kiobookingsystem;
