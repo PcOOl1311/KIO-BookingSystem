@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static edu.acg.kio.kiobookingsystem.functions.Menus.mainMenu;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
 
 
@@ -41,7 +42,8 @@ public class TestingFunctions {
         //ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
         //System.out.println(tableSLots);
         //ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
-        copyFile();
+        //copyFile();
+        mainMenu();
 
     }
 
