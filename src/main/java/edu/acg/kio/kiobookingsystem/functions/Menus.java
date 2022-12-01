@@ -10,7 +10,8 @@ public class Menus {
         int option;
 
         while (true) {
-            System.out.println("Choose an option: \n" +
+            System.out.println(
+                    "Choose an option: \n" +
                     "1.Login/Registration\n" +
                     "2.Continue as customer\n" +
                     "3.EXIT\n");

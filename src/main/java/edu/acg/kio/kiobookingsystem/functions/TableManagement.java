@@ -19,7 +19,6 @@ import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.*;
 import static edu.acg.kio.kiobookingsystem.functions.UserManagement.*;
 
 public class TableManagement {
-    private static String HOME = System.getProperty("user.home");
 
     public static Table searchTable(String searchTerm,ArrayList<Table> array){
         Table temp = null;
@@ -28,7 +27,16 @@ public class TableManagement {
         }
         return temp;
     }
-    public static ArrayList<TableSlot> searchTables(String searchTerm,ArrayList<TableSlot> array){
+
+    public static TableSlot searchTableSlot(String searchTerm,ArrayList<TableSlot> array){
+        TableSlot temp = null;
+        for(TableSlot tb: array){
+            if(tb.getTableName().equals(searchTerm)) temp = tb;
+        }
+        return temp;
+    }
+
+    public static ArrayList<TableSlot> searchTableSlots(String searchTerm,ArrayList<TableSlot> array){
         ArrayList<TableSlot> temp = null;
         searchTerm = searchTerm.toLowerCase(Locale.ROOT);
         if(searchTerm == null || searchTerm.equals(" ") || searchTerm.equals("")){
@@ -49,7 +57,6 @@ public class TableManagement {
                     temp.add(t);
                 }
             }
-
         }
         else if(searchTerm.equals("full")){  // We check if the Customer Object Exists in the Table
             for(TableSlot t : array){
@@ -60,7 +67,6 @@ public class TableManagement {
                     temp.add(t);
                 }
             }
-
         }
         else{
             for(TableSlot t: array){
@@ -71,7 +77,6 @@ public class TableManagement {
             }
         }
         return temp;
-
     }
 
     public static ArrayList<TableSlot> readTableSlotFromFile() throws FileNotFoundException{
@@ -149,26 +154,12 @@ public class TableManagement {
     }
 
 
-    public static ArrayList<Table> Reservations(Days Day){
-        ArrayList<Table> tablesArray = new ArrayList<>();
-        String tableName;
-        TableType type;
-        int minDrinks;
-        int maxPeople;
-        TableSlot tableSlot1;
-        TableSlot tableSlot2;
-
-
-
-
-        return tablesArray;
-    }
-
     public static void copyFile() throws IOException {
         String[] days ={"M","T","W","R","F","ST","SU"};
 
         File directory =new File("files/tablesPerWeek");
         FileUtils.cleanDirectory(directory);
+
 
         File originalFile = new File("files/tables.csv");
 

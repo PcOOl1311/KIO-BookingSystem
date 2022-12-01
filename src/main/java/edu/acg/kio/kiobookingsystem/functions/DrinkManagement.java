@@ -3,7 +3,6 @@ package edu.acg.kio.kiobookingsystem.functions;
 import edu.acg.kio.kiobookingsystem.classes.Drink;
 import edu.acg.kio.kiobookingsystem.classes.User;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
