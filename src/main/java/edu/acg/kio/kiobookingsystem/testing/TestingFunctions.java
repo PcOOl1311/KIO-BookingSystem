@@ -1,11 +1,8 @@
 package edu.acg.kio.kiobookingsystem.testing;
 
 import edu.acg.kio.kiobookingsystem.classes.*;
-import edu.acg.kio.kiobookingsystem.enumerators.TableType;
-import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
-import edu.acg.kio.kiobookingsystem.enumerators.UserType;
-import edu.acg.kio.kiobookingsystem.functions.DrinkManagement;
-import edu.acg.kio.kiobookingsystem.functions.UserManagement;
+import edu.acg.kio.kiobookingsystem.enumerators.*;
+import edu.acg.kio.kiobookingsystem.functions.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -33,9 +30,9 @@ public class TestingFunctions {
         */
 
 
-        ArrayList<Drink> drinks = DrinkManagement.readFromFiles();
+        ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
         System.out.println(drinks);
-        ArrayList<User> users = UserManagement.readFromFiles();
+        ArrayList<User> users = UserManagement.readUsersFromFile();
         System.out.println(users);
     }
 
