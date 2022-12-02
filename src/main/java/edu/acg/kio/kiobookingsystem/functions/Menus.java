@@ -12,6 +12,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static edu.acg.kio.kiobookingsystem.functions.SubSystems.*;
+
 public class Menus {
     public static void mainMenu() throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
@@ -59,36 +61,11 @@ public class Menus {
             String Junk = input.nextLine();
             switch (option) {
                 case 1: {
-                    System.out.println("Logging in, type BACK in username if you want to return\n");
-                    System.out.println("Insert your username: ");
-                    String username = input.nextLine();
-                    if (username.toUpperCase(Locale.ROOT).equals("BACK")) {
-                        break;
-                    }
-
-                    System.out.println("Insert your password: ");
-                    String password = input.nextLine();
-                    ;
+                    activeUser = login();
                 }
                 break;
                 case 2: {
-                    System.out.println("Registering, type BACK in username if you want to return\n");
-                    System.out.println("Insert a username: ");
-                    String username = input.nextLine();
-                    while (true) {
-                        System.out.println("Insert a password: ");
-                        String password = input.nextLine();
-                        System.out.println("Verify your password: ");
-                        String passwordVer = input.nextLine();
-                        if (Objects.equals(password, passwordVer)) {
-                            System.out.println("Insert phone number");
-                            String number = input.nextLine();
-                            System.out.println("Account has been registered successfully");
-                            break;
-                        } else {
-                            System.out.println("Passwords don't match try again");
-                        }
-                    }
+                    activeUser = register();
                 }
                 case 3: {
                     break;
@@ -168,29 +145,20 @@ public class Menus {
             int option = 0;
             switch (option) {
                 case 1:
-                    System.out.println("Set Reservee Name: \n");
-                    String reserveeName = input.nextLine();
-                    System.out.println("Set Table: \n");
-                    String table = input.nextLine();
-                    System.out.println("Set Number of People: \n");
-                    int peopleNum = input.nextInt();
-                    System.out.println("Set Drink Type");
-                    String drinkType = input.nextLine();
-
-                    System.out.println("Reservation Set Successfully!");
-                    break;
-
+                    TableSlot newTableSlot = newReservation();
+                    if(newTableSlot != null) System.out.println("Reservation Made Successfully");
+                    else System.out.println("Reservation not made");
+                    continue;
                 case 2:
                     reservationMenuEmployee(); //TODO add the search function here AND call on menu to manage reservation
-                    break;
+                    continue;
 
                 case 3:
                     ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
                     System.out.println(tableSLots);
-                    break;
+                    continue;
 
-                case 4:
-                    break;
+                case 4: break;
 
                 default:
                     System.out.println("Please type in an integer from 1-4");

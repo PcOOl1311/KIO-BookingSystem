@@ -20,6 +20,15 @@ public class UserManagement {
         return temp;
     }
 
+    public static User searchPassword(String searchTerm, ArrayList<User> array){
+        User temp = null;
+        //System.out.println(searchTerm);
+        for(User u: array){
+            if(u.getPassword().equals(searchTerm)) temp = u;
+        }
+        return temp;
+    }
+
     public static ArrayList<User> searchUsers(String searchTerm,ArrayList<User> array){
         ArrayList<User> temp = null;
         if(searchTerm == null){

@@ -38,8 +38,8 @@ public class TableSlot {
         return tableName;
     }
 
-    public String getTimeSlot() {
-        return timeSlot.toString();
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
     }
 
     public User getCustomer() {

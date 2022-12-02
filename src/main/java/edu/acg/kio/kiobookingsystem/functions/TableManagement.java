@@ -28,6 +28,25 @@ public class TableManagement {
         return temp;
     }
 
+    public static TableSlot searchIfTableSlotExists(TableSlot ts,ArrayList<TableSlot> array){
+        TableSlot temp = null;
+        for(TableSlot tableSlot: array){
+            if (Objects.equals(tableSlot, ts)) {
+                temp = ts;
+                break;
+            }
+            else {
+                TableSlot ts1 = new TableSlot(tableSlot.getTableName(), tableSlot.getTimeSlot(), tableSlot.getDay());
+                TableSlot ts2 = new TableSlot(ts.getTableName(), ts.getTimeSlot(), ts.getDay());
+                if (Objects.equals(ts1, ts2)) {
+                    temp = ts;
+                    break;
+                }
+            }
+        }
+        return temp;
+    }
+
     public static TableSlot searchTableSlot(String searchTerm,ArrayList<TableSlot> array){
         TableSlot temp = null;
         for(TableSlot tb: array){

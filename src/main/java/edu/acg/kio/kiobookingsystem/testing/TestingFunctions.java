@@ -10,13 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static edu.acg.kio.kiobookingsystem.functions.Menus.loginRegisterMenu;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.insertReservations;
 
 
 public class TestingFunctions {
     public static void main(String[] args) throws IOException {
-
+        loginRegisterMenu();
         //TESTING ALL CLASSES
         /*
         Drink d1 = new Drink("vodka",90.2 );
@@ -36,8 +37,9 @@ public class TestingFunctions {
         */
 
 
-       // ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
-       // System.out.println(drinks);
+        // ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
+        // System.out.println(drinks);
+        /*
         ArrayList<User> users = UserManagement.readUsersFromFile();
         System.out.println(users);
         ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
@@ -80,4 +82,5 @@ public class TestingFunctions {
         System.out.flush();
         // CLEARING SCREEN COMMAND (END)
     }
-}
+} */
+    }
