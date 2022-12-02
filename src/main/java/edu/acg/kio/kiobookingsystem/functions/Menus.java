@@ -5,6 +5,7 @@ import edu.acg.kio.kiobookingsystem.classes.TableSlot;
 import edu.acg.kio.kiobookingsystem.classes.User;
 import edu.acg.kio.kiobookingsystem.enumerators.Days;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
+import edu.acg.kio.kiobookingsystem.enumerators.UserType;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -180,7 +181,7 @@ public class Menus {
                     break;
 
                 case 2:
-                    System.out.println("option 2"); //TODO add the search function here AND call on menu to manage reservation
+                    reservationMenuEmployee(); //TODO add the search function here AND call on menu to manage reservation
                     break;
 
                 case 3:
@@ -188,12 +189,32 @@ public class Menus {
                     System.out.println(tableSLots);
                     break;
 
+                case 4: break;
+
                 default:
                     System.out.println("Please type in an integer from 1-4");
 
             }
 
 
+        }
+    }
+    public static void reservationMenuEmployee(User user){
+        if (user.getUserType().equals(UserType.EMPLOYEE)){
+            int option = 0;
+            while(true)
+
+                System.out.println("What do you want to do? \n" +
+                        "1. Edit Reservation\n" +
+                        "2. Delete Reservation\n" +
+                        "3. Get Reservation \n" +
+                        "4. BACK \n");
+
+                switch(option){
+                    case 1:
+        }
+        else if (user.getUserType().equals(UserType.CUSTOMER)){
+        }
         }
     }
 }

@@ -117,7 +117,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>edu.acg.kio.kiobookingsystem/edu.acg.kio.kiobookingsystem.HelloApplication
+                            <mainClass>edu.acg.kio.kiobookingsystem/edu.acg.kio.kiobookingsystem.Main
                             </mainClass>
                         </configuration>
                     </execution>
