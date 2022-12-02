@@ -150,7 +150,7 @@ public class Menus {
                     else System.out.println("Reservation not made");
                     continue;
                 case 2:
-                    reservationMenuEmployee(); //TODO add the search function here AND call on menu to manage reservation
+                    //reservationMenuEmployee(); //TODO add the search function here AND call on menu to manage reservation
                     continue;
 
                 case 3:

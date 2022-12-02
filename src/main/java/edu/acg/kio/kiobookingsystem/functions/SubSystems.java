@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.searchDrink;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.searchIfTableSlotExists;
-import static edu.acg.kio.kiobookingsystem.functions.UserManagement.searchPassword;
+import static edu.acg.kio.kiobookingsystem.functions.TableManagement.searchTableSlot;
 import static edu.acg.kio.kiobookingsystem.functions.UserManagement.searchUser;
 
 public class SubSystems {
@@ -154,5 +154,4 @@ public class SubSystems {
         }
     return tempUser;
     }
-
 }
