@@ -41,3 +41,5 @@ v0008,EARLY,Ilyse Aimson,Premium Gin,8,FRIDAY
 v0008,LATE,Arden Bolens,Gin,4,SATURDAY
 v0009,EARLY,Gabi Pulford,Vodka,2,SUNDAY
 v0009,LATE,Pearla Court,Premium Rum,7,MONDAY
+emptyE,EARLY,-,Vodka,5,UNASSIGNED
+emptyL,LATE,--,Premium Rum,2,UNASSIGNED

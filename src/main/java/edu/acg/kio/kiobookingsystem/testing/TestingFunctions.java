@@ -3,16 +3,18 @@ package edu.acg.kio.kiobookingsystem.testing;
 import edu.acg.kio.kiobookingsystem.classes.*;
 import edu.acg.kio.kiobookingsystem.enumerators.*;
 import edu.acg.kio.kiobookingsystem.functions.*;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
+import static edu.acg.kio.kiobookingsystem.functions.TableManagement.insertReservations;
 
 
 public class TestingFunctions {
-    static String pathName = "files/tables.csv";
     public static void main(String[] args) throws IOException {
 
         //TESTING ALL CLASSES
@@ -36,15 +38,46 @@ public class TestingFunctions {
 
        // ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
        // System.out.println(drinks);
-        //ArrayList<User> users = UserManagement.readUsersFromFile();
-        //System.out.println(users);
-        //ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
-        //System.out.println(tableSLots);
-        //ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
+        ArrayList<User> users = UserManagement.readUsersFromFile();
+        System.out.println(users);
+        ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
+        System.out.println(tableSLots);
+
+        //String[] days ={"M","T","W","R","F","ST","SU"};
+        String pathName = "files/tables.csv";
+
+
+
+        ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
         copyFile();
+        System.out.println(tables);
+        ArrayList<Table> tablesM = TableManagement.readTableFromFile("files/tablesPerWeek/tablesM.csv");
+        ArrayList<Table> tablesT = TableManagement.readTableFromFile("files/tablesPerWeek/tablesT.csv");
+        ArrayList<Table> tablesW = TableManagement.readTableFromFile("files/tablesPerWeek/tablesW.csv");
+        ArrayList<Table> tablesR = TableManagement.readTableFromFile("files/tablesPerWeek/tablesR.csv");
+        ArrayList<Table> tablesF = TableManagement.readTableFromFile("files/tablesPerWeek/tablesF.csv");
+        ArrayList<Table> tablesST = TableManagement.readTableFromFile("files/tablesPerWeek/tablesST.csv");
+        ArrayList<Table> tablesSU = TableManagement.readTableFromFile("files/tablesPerWeek/tablesSU.csv");
+        insertReservations(tableSLots,tablesM,Days.MONDAY);
+        insertReservations(tableSLots,tablesT,Days.TUESDAY);
+        insertReservations(tableSLots,tablesW,Days.WEDNESDAY);
+        insertReservations(tableSLots,tablesR,Days.THURSDAY);
+        insertReservations(tableSLots,tablesF,Days.FRIDAY);
+        insertReservations(tableSLots,tablesST,Days.SATURDAY);
+        insertReservations(tableSLots,tablesSU,Days.SUNDAY);
+        System.out.println(tablesM);
+        System.out.println(tablesT);
+        System.out.println(tablesW);
+        System.out.println(tablesR);
+        System.out.println(tablesF);
+        System.out.println(tablesST);
+        System.out.println(tablesSU);
 
     }
-
-
-
+    public static void CLS(){
+        // CLEARING SCREEN COMMAND (START)
+        System.out.println("\033[H\033[2J");
+        System.out.flush();
+        // CLEARING SCREEN COMMAND (END)
+    }
 }

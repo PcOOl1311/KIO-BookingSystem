@@ -108,6 +108,7 @@ public class TableManagement {
             else if(Objects.equals(TableSlots[5],"FRIDAY")) day = Days.FRIDAY;
             else if(Objects.equals(TableSlots[5],"SATURDAY")) day = Days.SATURDAY;
             else if(Objects.equals(TableSlots[5],"SUNDAY")) day = Days.SUNDAY;
+            else if(Objects.equals(TableSlots[5],"UNASSIGNED")) day = Days.UNASSIGNED;
             TableSlot ts = new TableSlot(tableName,timeSlot,customer,drink,amountOfPeople,day);
             tablesSlotArray.add(ts);
         }
@@ -119,6 +120,8 @@ public class TableManagement {
 
     public static ArrayList<Table> readTableFromFile(String pathName) throws FileNotFoundException {
         ArrayList<Table> tablesArray = new ArrayList<>();
+        ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
+
         String tableName;
         TableType type;
         int minDrinks;
@@ -142,8 +145,8 @@ public class TableManagement {
             else type = TableType.UNASSIGNED;
             minDrinks = Integer.parseInt(Tables[2]);
             maxPeople = Integer.parseInt(Tables[3]);
-            tableSlot1 = null;
-            tableSlot2 = null;
+            tableSlot1 = searchTableSlot("emptyE",tableSlots);
+            tableSlot2 = searchTableSlot("emptyL",tableSlots);
 
 
             Table table = new Table(tableName,type,minDrinks,maxPeople,tableSlot1,tableSlot2);
@@ -177,6 +180,22 @@ public class TableManagement {
         }
 
     }
-
-
+    public static void insertReservations(ArrayList<TableSlot> tableSlots,ArrayList<Table> tableDay,Days day) {
+        Table temp = null;
+        for(Table tb:tableDay){
+            tb.getTableSlot1().setDay(day);
+            tb.getTableSlot2().setDay(day);
+        }
+        ArrayList<Table> tables = new ArrayList<>();
+        for (TableSlot t : tableSlots) {
+            if (t.getDay().equals(day)) {
+                temp = searchTable(t.getTableName(), tableDay);
+                if (t.getTimeSlot().equals("EARLY")) {
+                    temp.setTableSlot1(t);
+                } else if (t.getTimeSlot().equals("LATE")) {
+                    temp.setTableSlot2(t);
+                }
+            }
+        }
+    }
 }

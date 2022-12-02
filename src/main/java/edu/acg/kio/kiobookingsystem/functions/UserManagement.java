@@ -13,6 +13,7 @@ public class UserManagement {
 
     public static User searchUser(String searchTerm,ArrayList<User> array){
         User temp = null;
+        //System.out.println(searchTerm);
         for(User u: array){
             if(u.getName().equals(searchTerm)) temp = u;
         }
