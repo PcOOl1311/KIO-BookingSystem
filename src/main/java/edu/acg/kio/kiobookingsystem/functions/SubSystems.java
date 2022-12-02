@@ -129,8 +129,7 @@ public class SubSystems {
 
                 if (Objects.equals(password, passwordVer)) {
                     break;
-                }
-                else {
+                } else {
                     System.out.println("Passwords don't match try again");
                 }
 
@@ -139,7 +138,7 @@ public class SubSystems {
             String number = input.nextLine();
 
             if (searchUser(username, users) == null) {
-                tempUser = new User(username,password,number, UserType.CUSTOMER);
+                tempUser = new User(username, password, number, UserType.CUSTOMER);
                 System.out.println("Account has been registered successfully");
                 break;
             } else if (searchUser(username, users) != null) {
@@ -152,6 +151,53 @@ public class SubSystems {
             System.out.println("Account has been registered successfully");
             break;
         }
-    return tempUser;
+        return tempUser;
+    }
+
+    public static TableSlot makeReservation() {
+        Scanner input = new Scanner(System.in);
+        Days tempDay = null;
+        TimeSlot tempTimeSlot = null;
+        while (true){
+            System.out.println("Insert Table Name: \n");
+            String reservationName = input.nextLine();
+
+            System.out.println("Insert Day: \n");
+            String day = input.nextLine();
+            if (Objects.equals(day, "MONDAY")) tempDay = Days.MONDAY;
+            else if (Objects.equals(day, "TUESDAY")) tempDay = Days.TUESDAY;
+            else if (Objects.equals(day, "WEDNESDAY")) tempDay = Days.WEDNESDAY;
+            else if (Objects.equals(day, "THURSDAY")) tempDay = Days.THURSDAY;
+            else if (Objects.equals(day, "FRIDAY")) tempDay = Days.FRIDAY;
+            else if (Objects.equals(day, "SATURDAY")) tempDay = Days.SATURDAY;
+            else if (Objects.equals(day, "SUNDAY")) tempDay = Days.SUNDAY;
+
+            System.out.println("Insert Time Slot: \n");                //TODO search function for availability
+            String timeSlot = input.nextLine();
+            if (Objects.equals(timeSlot, "EARLY")) tempTimeSlot = TimeSlot.EARLY;
+            else if (Objects.equals(timeSlot, "LATE")) tempTimeSlot = TimeSlot.LATE;
+            TableSlot tempTableSlot = new TableSlot(reservationName, tempTimeSlot, tempDay);
+
+            //With the tempTableSlot we will browse through the tableSlots.csv file and check based on reservation name, timeslot and dau to see what's available
+            //if those three getters are equal to the same values of one object then that reservation time is taken
+            //if all three getters dont match with the values of one object then the reservation time is available and can be set
+
+            if(searchTableSlot(tempTableSlot,tableSlots)==null) {
+                System.out.println("Insert Phone Number: \n");
+                String phoneNumber = input.nextLine();
+                System.out.println("Insert Table Type: \n");
+                String tableType = input.nextLine();
+                System.out.println("Insert Drink Type: \n");
+                String drinkType = input.nextLine();
+                TableSlot newTableSlot = new TableSlot(reservationName, tempTimeSlot, tempDay, phoneNumber, tableType, drinkType);
+                System.out.println("New Reservation Created Successfully!");
+            }
+            else if(searchTableSlot(tempTableSlot,tableSlots)!=null) {
+                System.out.println("This Reservation is Unavailable");
+                continue;
+            }
+        }
+
+    return tempTableSlot;
     }
 }
