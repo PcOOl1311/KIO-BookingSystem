@@ -13,16 +13,16 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Menus {
-    public static void mainMenu() {
+    public static void mainMenu() throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
         int option;
 
         while (true) {
             System.out.println(
                     "Choose an option: \n" +
-                    "1.Login/Registration\n" +
-                    "2.Continue as customer\n" +
-                    "3.EXIT\n");
+                            "1.Login/Registration\n" +
+                            "2.Continue as customer\n" +
+                            "3.EXIT\n");
 
             option = 0;
             option = input.nextInt();
@@ -45,7 +45,7 @@ public class Menus {
         }
     }
 
-    public static void loginRegisterMenu() {
+    public static void loginRegisterMenu() throws FileNotFoundException {
         User activeUser;
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -101,43 +101,6 @@ public class Menus {
         }
     }
 
-    private static void employeeMenu() throws FileNotFoundException {
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            System.out.println("What do you want to do? \n" +
-                    "1. Add Reservation\n" +
-                    "2. Search Reservation\n" +
-                    "3. View Reservations \n" +
-                    "4. BACK \n");
-
-            int option=0;
-            switch(option){
-                case 1:
-                    System.out.println("Set Reservee Name: \n");
-                    String reserveeName = input.nextLine();
-                    System.out.println("Set Table: \n");
-                    String table = input.nextLine();
-                    System.out.println("Set Number of People: \n");
-                    int peopleNum = input.nextInt();
-                    System.out.println("Set Drink Type");
-                    String drinkType = input.nextLine();
-
-                    System.out.println("Reservation Set Successfully!");
-                    break;
-
-                case 2:
-                    System.out.println("option 2"); //TODO add the search function here AND call on menu to manage reservation
-                    break;
-
-                case 3:
-                    ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
-                    System.out.println(tableSLots);
-                    break;
-
-                default:
-                    System.out.println("Please type in an integer from 1-4");
-
-    }
 
     public static void customerMenu() {
         Scanner input = new Scanner(System.in);
@@ -190,6 +153,47 @@ public class Menus {
 
             default:
                 System.out.println("Please enter an integer from 1-4\n");
+        }
+    }
+    public static void employeeMenu() throws FileNotFoundException {
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            System.out.println("What do you want to do? \n" +
+                    "1. Add Reservation\n" +
+                    "2. Search Reservation\n" +
+                    "3. View Reservations \n" +
+                    "4. BACK \n");
+
+            int option = 0;
+            switch (option) {
+                case 1:
+                    System.out.println("Set Reservee Name: \n");
+                    String reserveeName = input.nextLine();
+                    System.out.println("Set Table: \n");
+                    String table = input.nextLine();
+                    System.out.println("Set Number of People: \n");
+                    int peopleNum = input.nextInt();
+                    System.out.println("Set Drink Type");
+                    String drinkType = input.nextLine();
+
+                    System.out.println("Reservation Set Successfully!");
+                    break;
+
+                case 2:
+                    System.out.println("option 2"); //TODO add the search function here AND call on menu to manage reservation
+                    break;
+
+                case 3:
+                    ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
+                    System.out.println(tableSLots);
+                    break;
+
+                default:
+                    System.out.println("Please type in an integer from 1-4");
+
+            }
+
+
         }
     }
 }

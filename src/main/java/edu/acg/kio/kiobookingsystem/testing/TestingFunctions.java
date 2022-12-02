@@ -50,7 +50,7 @@ public class TestingFunctions {
 
         ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
         copyFile();
-        System.out.println(tables);
+        //System.out.println(tables);
         ArrayList<Table> tablesM = TableManagement.readTableFromFile("files/tablesPerWeek/tablesM.csv");
         ArrayList<Table> tablesT = TableManagement.readTableFromFile("files/tablesPerWeek/tablesT.csv");
         ArrayList<Table> tablesW = TableManagement.readTableFromFile("files/tablesPerWeek/tablesW.csv");
@@ -65,13 +65,13 @@ public class TestingFunctions {
         insertReservations(tableSLots,tablesF,Days.FRIDAY);
         insertReservations(tableSLots,tablesST,Days.SATURDAY);
         insertReservations(tableSLots,tablesSU,Days.SUNDAY);
-        System.out.println(tablesM);
-        System.out.println(tablesT);
-        System.out.println(tablesW);
-        System.out.println(tablesR);
-        System.out.println(tablesF);
-        System.out.println(tablesST);
-        System.out.println(tablesSU);
+        //System.out.println(tablesM);
+        //System.out.println(tablesT);
+        //System.out.println(tablesW);
+        //System.out.println(tablesR);
+        //System.out.println(tablesF);
+        //System.out.println(tablesST);
+        //System.out.println(tablesSU);
 
     }
     public static void CLS(){
