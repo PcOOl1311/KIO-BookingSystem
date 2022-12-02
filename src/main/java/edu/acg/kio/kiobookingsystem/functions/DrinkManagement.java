@@ -3,9 +3,7 @@ package edu.acg.kio.kiobookingsystem.functions;
 import edu.acg.kio.kiobookingsystem.classes.Drink;
 import edu.acg.kio.kiobookingsystem.classes.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -40,6 +38,18 @@ public class DrinkManagement {
         }
         return temp;
     }
+
+    public static void writeDrinksToFile(ArrayList<Drink> drinks) throws IOException {
+
+        File file = new File("files/drinks.csv");
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        for (Drink d : drinks){
+            bw.write(d.toFile());
+        }
+        bw.close();
+        fw.close();
+        }
 
 
     public static ArrayList<Drink> readDrinksFromFile() throws FileNotFoundException {

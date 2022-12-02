@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.writeDrinksToFile;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.insertReservations;
 
@@ -36,35 +37,37 @@ public class TestingFunctions {
         */
 
 
-       // ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
-       // System.out.println(drinks);
-        ArrayList<User> users = UserManagement.readUsersFromFile();
-        System.out.println(users);
-        ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
-        System.out.println(tableSLots);
+        ArrayList<Drink> drinks = DrinkManagement.readDrinksFromFile();
+        System.out.println(drinks);
+        drinks.get(0).setName("Vodki");
+        writeDrinksToFile(drinks);
+        //ArrayList<User> users = UserManagement.readUsersFromFile();
+        //.out.println(users);
+        //ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
+        //System.out.println(tableSLots);
 
         //String[] days ={"M","T","W","R","F","ST","SU"};
-        String pathName = "files/tables.csv";
+        //String pathName = "files/tables.csv";
 
 
 
-        ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
-        copyFile();
+        //ArrayList<Table> tables = TableManagement.readTableFromFile(pathName);
+        //copyFile();
         //System.out.println(tables);
-        ArrayList<Table> tablesM = TableManagement.readTableFromFile("files/tablesPerWeek/tablesM.csv");
-        ArrayList<Table> tablesT = TableManagement.readTableFromFile("files/tablesPerWeek/tablesT.csv");
-        ArrayList<Table> tablesW = TableManagement.readTableFromFile("files/tablesPerWeek/tablesW.csv");
-        ArrayList<Table> tablesR = TableManagement.readTableFromFile("files/tablesPerWeek/tablesR.csv");
-        ArrayList<Table> tablesF = TableManagement.readTableFromFile("files/tablesPerWeek/tablesF.csv");
-        ArrayList<Table> tablesST = TableManagement.readTableFromFile("files/tablesPerWeek/tablesST.csv");
-        ArrayList<Table> tablesSU = TableManagement.readTableFromFile("files/tablesPerWeek/tablesSU.csv");
-        insertReservations(tableSLots,tablesM,Days.MONDAY);
-        insertReservations(tableSLots,tablesT,Days.TUESDAY);
-        insertReservations(tableSLots,tablesW,Days.WEDNESDAY);
-        insertReservations(tableSLots,tablesR,Days.THURSDAY);
-        insertReservations(tableSLots,tablesF,Days.FRIDAY);
-        insertReservations(tableSLots,tablesST,Days.SATURDAY);
-        insertReservations(tableSLots,tablesSU,Days.SUNDAY);
+        //ArrayList<Table> tablesM = TableManagement.readTableFromFile("files/tablesPerWeek/tablesM.csv");
+        //ArrayList<Table> tablesT = TableManagement.readTableFromFile("files/tablesPerWeek/tablesT.csv");
+        //ArrayList<Table> tablesW = TableManagement.readTableFromFile("files/tablesPerWeek/tablesW.csv");
+        //ArrayList<Table> tablesR = TableManagement.readTableFromFile("files/tablesPerWeek/tablesR.csv");
+        //ArrayList<Table> tablesF = TableManagement.readTableFromFile("files/tablesPerWeek/tablesF.csv");
+        //ArrayList<Table> tablesST = TableManagement.readTableFromFile("files/tablesPerWeek/tablesST.csv");
+        //ArrayList<Table> tablesSU = TableManagement.readTableFromFile("files/tablesPerWeek/tablesSU.csv");
+        //insertReservations(tableSLots,tablesM,Days.MONDAY);
+        //insertReservations(tableSLots,tablesT,Days.TUESDAY);
+        //insertReservations(tableSLots,tablesW,Days.WEDNESDAY);
+        //insertReservations(tableSLots,tablesR,Days.THURSDAY);
+        //insertReservations(tableSLots,tablesF,Days.FRIDAY);
+        //insertReservations(tableSLots,tablesST,Days.SATURDAY);
+        //insertReservations(tableSLots,tablesSU,Days.SUNDAY);
         //System.out.println(tablesM);
         //System.out.println(tablesT);
         //System.out.println(tablesW);
@@ -73,7 +76,10 @@ public class TestingFunctions {
         //System.out.println(tablesST);
         //System.out.println(tablesSU);
 
+
+
     }
+
     public static void CLS(){
         // CLEARING SCREEN COMMAND (START)
         System.out.println("\033[H\033[2J");

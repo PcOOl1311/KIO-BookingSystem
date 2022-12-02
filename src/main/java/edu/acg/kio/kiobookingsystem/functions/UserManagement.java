@@ -3,8 +3,7 @@ package edu.acg.kio.kiobookingsystem.functions;
 import edu.acg.kio.kiobookingsystem.classes.*;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -31,6 +30,17 @@ public class UserManagement {
             }
         }
         return temp;
+    }
+
+    public static void writeUsersToFile(ArrayList<User> users) throws IOException {
+        File file = new File("files/users.csv");
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        for (User u : users){
+            bw.write(u.toFile());
+        }
+        bw.close();
+        fw.close();
     }
 
     public static ArrayList<User> readUsersFromFile() throws FileNotFoundException {
