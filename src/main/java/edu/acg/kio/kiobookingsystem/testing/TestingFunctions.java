@@ -11,13 +11,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static edu.acg.kio.kiobookingsystem.functions.Menus.loginRegisterMenu;
+import static edu.acg.kio.kiobookingsystem.functions.Menus.mainMenu;
+import static edu.acg.kio.kiobookingsystem.functions.SubSystems.login;
+import static edu.acg.kio.kiobookingsystem.functions.SubSystems.register;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.insertReservations;
 
 
 public class TestingFunctions {
     public static void main(String[] args) throws IOException {
-        loginRegisterMenu();
+        mainMenu();
         //TESTING ALL CLASSES
         /*
         Drink d1 = new Drink("vodka",90.2 );

@@ -98,13 +98,13 @@ public class SubSystems {
                     String password = input.nextLine();
                     if (tempUser.getPassword().equals(password)) {
                         System.out.println("Login Successful");
-                        continue;
+                        break;
                     } else if (!Objects.equals(tempUser.getPassword(), password)) {
                         System.out.println("Wrong password, try again");
                     }
                 }
             }
-
+        if(tempUser!=null)break;
         }
         return tempUser;
 
@@ -114,8 +114,8 @@ public class SubSystems {
         User tempUser = null;
         Scanner input = new Scanner(System.in);
         while (true) {
-            System.out.println("Insert a username: ");
             System.out.println("Registering, type BACK in username if you want to return\n");
+            System.out.println("Insert a username: ");
             String username = input.nextLine();
             if (username.toUpperCase(Locale.ROOT).equals("BACK")) break;
 
@@ -153,7 +153,7 @@ public class SubSystems {
         }
         return tempUser;
     }
-
+/*
     public static TableSlot makeReservation() {
         Scanner input = new Scanner(System.in);
         Days tempDay = null;
@@ -181,7 +181,7 @@ public class SubSystems {
             //With the tempTableSlot we will browse through the tableSlots.csv file and check based on reservation name, timeslot and dau to see what's available
             //if those three getters are equal to the same values of one object then that reservation time is taken
             //if all three getters dont match with the values of one object then the reservation time is available and can be set
-
+/*
             if(searchTableSlot(tempTableSlot,tableSlots)==null) {
                 System.out.println("Insert Phone Number: \n");
                 String phoneNumber = input.nextLine();
@@ -199,5 +199,5 @@ public class SubSystems {
         }
 
     return tempTableSlot;
-    }
+    }*/
 }

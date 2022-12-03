@@ -61,7 +61,7 @@ public class DrinkManagement {
 
         while (input.hasNext()) {
             String[] Drinks = input.nextLine().split(",");
-            Drink drink = new Drink(Drinks[0],Integer.parseInt(Drinks[1]));
+            Drink drink = new Drink(Drinks[0],Double.parseDouble(Drinks[1]));
             drinksArray.add(drink);
         }
 

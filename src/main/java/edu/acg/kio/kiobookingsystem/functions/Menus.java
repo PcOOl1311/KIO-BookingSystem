@@ -20,34 +20,50 @@ public class Menus {
         int option;
 
         while (true) {
-            System.out.println(
-                    "Choose an option: \n" +
-                            "1.Login/Registration\n" +
-                            "2.Continue as customer\n" +
-                            "3.EXIT\n");
+            try {
+                option = 0;
+                System.out.println(
+                        "Choose an option: \n" +
+                                "1.Login/Registration\n" +
+                                "2.Continue as customer\n" +
+                                "3.EXIT\n");
 
-            option = 0;
-            option = input.nextInt();
-            switch (option) {
-                case 1: {
-                    loginRegisterMenu();
+                option = input.nextInt();
+                String Junk = input.nextLine();
+
+                switch (option) {
+                    case 1: {
+                        while(true) {
+                            int output = loginRegisterMenu();
+                            if(output == 0){
+                                break;
+                            }
+                            else if(output == 1){
+                                continue;
+                            }
+                            continue;
+                        }
+                    }
+                    case 2: {
+                        customerMenu();
+                        continue;
+                    }
+                    case 3: {
+                        System.out.println("Goodbye\n");
+                        System.exit(0);
+                    }
+                    default:
+                        System.out.println("Please enter an integer from 1-3\n");
                 }
-                break;
-                case 2: {
-                    customerMenu();
-                }
-                break;
-                case 3: {
-                    System.out.println("Goodbye\n");
-                    System.exit(0);
-                }
-                default:
-                    System.out.println("Please enter an integer from 1-3\n");
+            }
+            catch(Exception e){
+                System.out.println("Invalid Input please enter an integer from 1-3");
+                continue;
             }
         }
     }
 
-    public static void loginRegisterMenu() throws FileNotFoundException {
+    public static int loginRegisterMenu() throws FileNotFoundException {
         User activeUser;
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -59,22 +75,30 @@ public class Menus {
             int option = 0;
             option = input.nextInt();
             String Junk = input.nextLine();
+            int output=0;
             switch (option) {
                 case 1: {
                     activeUser = login();
+                    if (activeUser == null) continue;
+                    else if (activeUser != null) continue;
+                    break;
                 }
-                break;
                 case 2: {
                     activeUser = register();
+                    if(activeUser==null)continue;
+                    else if(activeUser!=null)continue;
                 }
                 case 3: {
+                    output = 1;
                     break;
                 }
                 default:
+
                     System.out.println("Please enter an integer from 1-3\n");
             }
             //TODO if user type is admin or employee show specific menu
             employeeMenu();
+        return 0;
         }
     }
 
