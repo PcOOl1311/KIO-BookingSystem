@@ -21,14 +21,14 @@ public class Menus {
         User Guest = new User("Guest", "-", "None", UserType.GUEST);
         while (true) {
             while (true) {
-                int option = 0;
-
-                System.out.println(
+                    int option;
+                while (true) {
+                    option = 0;
+                    System.out.println(
                         "Choose an option: \n" +
                                 "1.Login/Registration\n" +
                                 "2.Continue as customer\n" +
                                 "3.EXIT\n");
-                while (true) {
                     try {
                         option = input.nextInt();
                         String Junk = input.nextLine();
@@ -231,6 +231,7 @@ public class Menus {
     }
 
     public static void adminMenu(User loggedInUser) {
+        Scanner input = new Scanner(System.in);
         int option = 0;
         while (true) {
 
@@ -240,35 +241,37 @@ public class Menus {
                     "3. Manage Drinks \n" +
                     "4. Manage Users \n" +
                     "5. Sign Out \n");
-
+            option = input.nextInt();
+            String Junk = input.nextLine();
             switch (option) {
                 case 1:
                     System.out.println(" Manage Tables");
                     adminManageTables();
-                    break;
+                    continue;
                 case 2:
                     System.out.println("Manage Reservations");
                     adminManageReservations();
-                    break;
+                    continue;
                 case 3:
                     System.out.println("Manage Drinks");
                     adminManageDrinks();
-                    break;
+                    continue;
                 case 4:
                     System.out.println("Manage Users");
                     adminManageUsers();
-                    break;
+                    continue;
                 case 5:
-                    System.out.println("Sign out");
                     break;
                 default:
                     System.out.println("Please type in an integer from 1-5");
             }
+            break;
         }
     }
 
 
     public static void adminManageTables() {
+        Scanner input = new Scanner(System.in);
         int option = 0;
         while (true) {
 
@@ -278,7 +281,7 @@ public class Menus {
                     "3. Delete Table \n" +
                     "4. Get Table \n" +
                     "5. BACK \n");
-
+            option = input.nextInt(); ;
             switch (option) {
                 case 1:
                     System.out.println("Add Table");
@@ -297,10 +300,12 @@ public class Menus {
                 default:
                     System.out.println("Please type in an integer from 1-5");
             }
+            break;
         }
     }
 
     public static void adminManageReservations() {
+        Scanner input = new Scanner(System.in);
         int option = 0;
         while (true) {
 
@@ -310,7 +315,7 @@ public class Menus {
                     "3. Delete TableSlot \n" +
                     "4. Get TableSlot \n" +
                     "5. BACK \n");
-
+            option = input.nextInt(); ;
             switch (option) {
                 case 1:
                     System.out.println("Add TableSlot");
@@ -329,10 +334,12 @@ public class Menus {
                 default:
                     System.out.println("Please type in an integer from 1-5");
             }
+        break;
         }
     }
 
     public static void adminManageDrinks() {
+        Scanner input = new Scanner(System.in);
         int option = 0;
         while (true) {
 
@@ -341,7 +348,7 @@ public class Menus {
                     "2. Edit Drink\n" +
                     "3. Delete Drink \n" +
                     "4. BACK \n");
-
+            option = input.nextInt(); ;
             switch (option) {
                 case 1:
                     System.out.println("Add Drink");
@@ -357,10 +364,12 @@ public class Menus {
                 default:
                     System.out.println("Please type in an integer from 1-4");
             }
+            break;
         }
     }
 
     public static void adminManageUsers() {
+        Scanner input = new Scanner(System.in);
         int option = 0;
         while (true) {
 
@@ -371,7 +380,7 @@ public class Menus {
                     "4. Delete User \n" +
                     "5. Get User \n" +
                     "6. BACK \n");
-
+            option = input.nextInt(); ;
             switch (option) {
                 case 1:
                     System.out.println("Add New User");
@@ -393,6 +402,7 @@ public class Menus {
                 default:
                     System.out.println("Please type in an integer from 1-6");
             }
+            break;
         }
     }
 }
