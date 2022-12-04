@@ -7,6 +7,7 @@ import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
@@ -98,7 +99,7 @@ public class Menus {
     }
 
 
-    public static void customerMenu(User loggedInUser) {
+    public static void customerMenu(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
         int option = 0;
         while (option == 0) {
@@ -113,35 +114,8 @@ public class Menus {
 
         switch (option) {
             case 1:
-                Days tempDay = null;
-                TimeSlot tempTimeSlot = null;
-                System.out.println("Insert Table Name: \n");
-                String reservationName = input.nextLine();
 
-                System.out.println("Insert Day: \n");
-                String day = input.nextLine();
-                if (Objects.equals(day, "MONDAY")) tempDay = Days.MONDAY;
-                else if (Objects.equals(day, "TUESDAY")) tempDay = Days.TUESDAY;
-                else if (Objects.equals(day, "WEDNESDAY")) tempDay = Days.WEDNESDAY;
-                else if (Objects.equals(day, "THURSDAY")) tempDay = Days.THURSDAY;
-                else if (Objects.equals(day, "FRIDAY")) tempDay = Days.FRIDAY;
-                else if (Objects.equals(day, "SATURDAY")) tempDay = Days.SATURDAY;
-                else if (Objects.equals(day, "SUNDAY")) tempDay = Days.SUNDAY;
-
-                System.out.println("Insert Time Slot: \n");                //TODO search function for availability
-                String timeSlot = input.nextLine();
-                if (Objects.equals(timeSlot, "EARLY")) tempTimeSlot = TimeSlot.EARLY;
-                else if (Objects.equals(timeSlot, "LATE")) tempTimeSlot = TimeSlot.LATE;
-                TableSlot tempTableSlot = new TableSlot(reservationName, tempTimeSlot, tempDay);
-
-                //SEARCH FUNCTION
-
-                System.out.println("Insert Phone Number: \n");
-                String phoneNumber = input.nextLine();
-                System.out.println("Insert Table Type: \n");
-                String tableType = input.nextLine();
-                System.out.println("Insert Drink Type: \n");
-                String drinkType = input.nextLine();
+                makeReservation(loggedInUser);
 
             case 2:
 

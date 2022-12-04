@@ -278,7 +278,9 @@ public class SubSystems {
         insertReservations(tableSlots,tablesSU,Days.SUNDAY);
         return tables;
     }
-    public static TableSlot makeReservation(User loggedInUser) throws FileNotFoundException {
+    public static TableSlot makeReservation(User loggedInUser) throws IOException {
+        ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
+        ArrayList<Table> tables = readTableFromFile("Files/tables.csv");
         Scanner input = new Scanner(System.in);
         Days tempDay = null;
         TimeSlot tempTimeSlot = null;
@@ -286,7 +288,6 @@ public class SubSystems {
         while (true) {
             System.out.println("Insert Table Name: \n");
             String tableName = input.nextLine();
-            ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
             System.out.println("Insert Day: \n");
             String day = input.nextLine();
             if (Objects.equals(day, "MONDAY")) tempDay = Days.MONDAY;
@@ -307,11 +308,9 @@ public class SubSystems {
             //if those three getters are equal to the same values of one object then that reservation time is taken
             //if all three getters dont match with the values of one object then the reservation time is available and can be set
 
-            if (searchTableSlot(String.valueOf(tempTableSlot), tableSlots) == null) {
                 System.out.println("Insert Phone Number: \n");
                 String phoneNumber = input.nextLine();
-                System.out.println("Insert Table Type: \n");
-                TableType tableType = tableTypeValidation();
+                TableType tableType = searchTable(tableName,tables).getType();
                 System.out.println("Insert Drink Type: \n");
                 Drink drink = searchDrink(input.nextLine(), drinks);
                 System.out.println("Insert Amount of People: \n");
@@ -319,10 +318,13 @@ public class SubSystems {
                 TableSlot newTableSlot = new TableSlot(tableName, tempTimeSlot, loggedInUser, drink, amountOfPeople, tempDay);
                 tableSlots.add(newTableSlot);
                 System.out.println("New Reservation Created Successfully!");
-            } else if (searchTableSlot(String.valueOf(tempTableSlot), tableSlots) != null) {
+                System.out.println(newTableSlot);
+                System.out.println(tableSlots);
+                writeTableSlotsToFile(tableSlots);
+             /*else if (searchTableSlot(String.valueOf(tempTableSlot), tableSlots) != null) {
                 System.out.println("This Reservation is Unavailable");
                 continue;
-            }
+            } */
             return tempTableSlot;
         }
     }
