@@ -17,36 +17,35 @@ import static edu.acg.kio.kiobookingsystem.functions.SubSystems.*;
 public class Menus {
     public static void mainMenu() throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
-        int option;
-
+        User loggedInUser = null;
+        User Guest = new User("Guest", "-", "None", UserType.GUEST);
         while (true) {
-            try {
-                option = 0;
+            while (true) {
+                int option = 0;
+
                 System.out.println(
                         "Choose an option: \n" +
                                 "1.Login/Registration\n" +
                                 "2.Continue as customer\n" +
                                 "3.EXIT\n");
-
-                option = input.nextInt();
-                String Junk = input.nextLine();
+                while (true) {
+                    try {
+                        option = input.nextInt();
+                        String Junk = input.nextLine();
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Invalid Input Please Input Integers 1-3");
+                    }
+                }
 
                 switch (option) {
                     case 1: {
-                        while(true) {
-                            int output = loginRegisterMenu();
-                            if(output == 0){
-                                break;
-                            }
-                            else if(output == 1){
-                                continue;
-                            }
-                            continue;
-                        }
+                        loggedInUser = loginRegisterMenu();
+                        break;
                     }
                     case 2: {
-                        customerMenu();
-                        continue;
+                        loggedInUser = Guest;
+                        break;
                     }
                     case 3: {
                         System.out.println("Goodbye\n");
@@ -55,16 +54,23 @@ public class Menus {
                     default:
                         System.out.println("Please enter an integer from 1-3\n");
                 }
+            try{
+            if (loggedInUser.getUserType().equals(UserType.CUSTOMER)) employeeMenu(loggedInUser);
+            else if (loggedInUser.getUserType().equals(UserType.EMPLOYEE)) employeeMenu(loggedInUser);
+            else if (loggedInUser.getUserType().equals(UserType.ADMIN)) adminMenu(loggedInUser);
+            else if (loggedInUser.getUserType().equals(UserType.GUEST)) customerMenu(loggedInUser);
+            }catch (Exception ignored){
             }
-            catch(Exception e){
-                System.out.println("Invalid Input please enter an integer from 1-3");
-                continue;
             }
         }
+
     }
 
-    public static int loginRegisterMenu() throws FileNotFoundException {
-        User activeUser;
+
+
+
+    public static User loginRegisterMenu() throws FileNotFoundException {
+        User activeUser = null;
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.println("Choose an option: \n" +
@@ -80,8 +86,7 @@ public class Menus {
                 case 1: {
                     activeUser = login();
                     if (activeUser == null) continue;
-                    else if (activeUser != null) continue;
-                    break;
+                    else if (activeUser != null) break;
                 }
                 case 2: {
                     activeUser = register();
@@ -96,21 +101,22 @@ public class Menus {
 
                     System.out.println("Please enter an integer from 1-3\n");
             }
-            //TODO if user type is admin or employee show specific menu
-            employeeMenu();
-        return 0;
+        return activeUser;
         }
     }
 
 
-    public static void customerMenu() {
+    public static void customerMenu(User loggedInUser) {
         Scanner input = new Scanner(System.in);
+        int option = 0;
+
         System.out.println("What do you want to do? \n");
-        System.out.println("1. Make a reservation\n" +
+        System.out.println(
+                "1. Make a reservation\n" +
                 "2. Check availability\n" +
                 "3. Check your reservations\n" +
                 "4. BACK");
-        int option = 0;
+
         option = input.nextInt();
         String Junk = input.nextLine();
         switch (option) {
@@ -157,7 +163,7 @@ public class Menus {
         }
     }
 
-    public static void employeeMenu() throws FileNotFoundException {
+    public static void employeeMenu(User loggedInUser) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.println("What do you want to do? \n" +
@@ -221,12 +227,10 @@ public class Menus {
                         System.out.println("Please type in an integer from 1-4");
                 }
             }
-        } else if (user.getUserType().equals(UserType.CUSTOMER)) {
-            customerMenu();
         }
     }
 
-    public static void adminMenu() {
+    public static void adminMenu(User loggedInUser) {
         int option = 0;
         while (true) {
 

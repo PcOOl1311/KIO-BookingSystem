@@ -42,6 +42,7 @@ public class SubSystems {
     public static TableSlot newReservation() throws FileNotFoundException {
         TableSlot tempTS = null;
         while (true) {
+            CLS();
             Scanner input = new Scanner(System.in);
             User user = null;
             System.out.println("Set Customer Name: \n");
@@ -83,6 +84,7 @@ public class SubSystems {
         Scanner input = new Scanner(System.in);
         User tempUser = null;
         while (true) {
+            CLS();
             System.out.println("Logging in, type BACK in username if you want to return\n");
             System.out.println("Insert your username: ");
             String username = input.nextLine();
@@ -114,6 +116,7 @@ public class SubSystems {
         User tempUser = null;
         Scanner input = new Scanner(System.in);
         while (true) {
+            CLS();
             System.out.println("Registering, type BACK in username if you want to return\n");
             System.out.println("Insert a username: ");
             String username = input.nextLine();
@@ -152,6 +155,13 @@ public class SubSystems {
             break;
         }
         return tempUser;
+    }
+
+    public static void CLS() {
+        // CLEARING SCREEN COMMAND (START)
+        System.out.println("\033[H\033[2J");
+        System.out.flush();
+        // CLEARING SCREEN COMMAND (END)
     }
 /*
     public static TableSlot makeReservation() {
