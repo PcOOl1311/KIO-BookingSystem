@@ -1,22 +1,24 @@
 package edu.acg.kio.kiobookingsystem.functions;
 
 import edu.acg.kio.kiobookingsystem.classes.Drink;
+import edu.acg.kio.kiobookingsystem.classes.Table;
 import edu.acg.kio.kiobookingsystem.classes.TableSlot;
 import edu.acg.kio.kiobookingsystem.classes.User;
 import edu.acg.kio.kiobookingsystem.enumerators.Days;
+import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
 import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.searchDrink;
-import static edu.acg.kio.kiobookingsystem.functions.TableManagement.searchIfTableSlotExists;
-import static edu.acg.kio.kiobookingsystem.functions.TableManagement.searchTableSlot;
+import static edu.acg.kio.kiobookingsystem.functions.TableManagement.*;
 import static edu.acg.kio.kiobookingsystem.functions.UserManagement.searchUser;
 
 public class SubSystems {
@@ -98,6 +100,100 @@ public class SubSystems {
             }
         }
         return tempTS;
+    }
+
+    public static TableType tableTypeValidation(){
+        TableType tableType = null;
+        Scanner input = new Scanner(System.in);
+        while (tableType== null) {
+            System.out.println("What type of Table do you want to add?");
+            String userInput = input.nextLine();
+            try {
+                if (TableType.valueOf(userInput) == TableType.NORMAL) tableType = TableType.NORMAL;
+                else if (TableType.valueOf(userInput) == TableType.VIP) tableType = TableType.VIP;
+                else if (TableType.valueOf(userInput) == TableType.BACKSTAGE) tableType = TableType.BACKSTAGE;
+                else
+                    System.out.println("Please type NORMAL , VIP or BACKSTAGE");
+            }catch (Exception e){
+                System.out.println("Invalid Input");
+            }
+        }
+        return tableType;
+    }
+
+    public static ArrayList<Table> newTable() throws IOException {
+        ArrayList<Table> tables = readTableFromFile("files/tables.csv");
+        ArrayList<TableSlot> tableSlots =readTableSlotFromFile();
+        Table tempTable = null;
+        int newNumTables =0;
+        Scanner input = new Scanner(System.in);
+        TableType tableType = null;
+        String tableName;
+        int minDrinks = 0;
+        int maxPeople = 0;
+        TableSlot tableSlotE = searchTableSlot("emptyE",tableSlots);
+        TableSlot tableSlotL = searchTableSlot("emptyL",tableSlots);
+        tableType = tableTypeValidation();
+        if(tableType.equals(TableType.NORMAL)) {
+            while (newNumTables == 0) {
+                System.out.println("How many new Normal Tables do you want?");
+                newNumTables = userValidation(1, 10);
+            }
+        }
+
+        else if(tableType.equals(TableType.VIP)) {
+            while (newNumTables == 0) {
+                System.out.println("How many new VIP Tables do you want?");
+                newNumTables = userValidation(1, 10);
+            }
+        }
+
+        else if(tableType.equals(TableType.BACKSTAGE)) {
+            while (newNumTables == 0) {
+                System.out.println("How many new BackStage Tables do you want?");
+                newNumTables = userValidation(1, 10);
+            }
+        }
+        System.out.println("How many are the Minimum Drinks? ");
+        while (minDrinks == 0) {
+            System.out.println("Set minimum Drinks ");
+            minDrinks = userValidation(1,10);
+        }
+        while (maxPeople == 0) {
+            System.out.println("Set maximum Amount People");
+            maxPeople = userValidation(6,20);
+        }
+        for(int i = 1;i<=newNumTables;i++){
+
+            while (true){
+                System.out.println("Give me a table name");
+                tableName = input.nextLine();
+                if (searchTable(tableName, tables) != null) {
+                    System.out.println("This table Name Already Exists Enter Another One");
+                } else System.out.println("Table Name Set");
+                    break;
+            }
+            tempTable = new Table(tableName,tableType,minDrinks,maxPeople,tableSlotE,tableSlotL);
+            tables.add(tempTable);
+        }
+
+        writeTablesToFile(tables);
+        copyFile();
+        ArrayList<Table> tablesM = TableManagement.readTableFromFile("files/tablesPerWeek/tablesM.csv");
+        ArrayList<Table> tablesT = TableManagement.readTableFromFile("files/tablesPerWeek/tablesT.csv");
+        ArrayList<Table> tablesW = TableManagement.readTableFromFile("files/tablesPerWeek/tablesW.csv");
+        ArrayList<Table> tablesR = TableManagement.readTableFromFile("files/tablesPerWeek/tablesR.csv");
+        ArrayList<Table> tablesF = TableManagement.readTableFromFile("files/tablesPerWeek/tablesF.csv");
+        ArrayList<Table> tablesST = TableManagement.readTableFromFile("files/tablesPerWeek/tablesST.csv");
+        ArrayList<Table> tablesSU = TableManagement.readTableFromFile("files/tablesPerWeek/tablesSU.csv");
+        insertReservations(tableSlots,tablesM,Days.MONDAY);
+        insertReservations(tableSlots,tablesT,Days.TUESDAY);
+        insertReservations(tableSlots,tablesW,Days.WEDNESDAY);
+        insertReservations(tableSlots,tablesR,Days.THURSDAY);
+        insertReservations(tableSlots,tablesF,Days.FRIDAY);
+        insertReservations(tableSlots,tablesST,Days.SATURDAY);
+        insertReservations(tableSlots,tablesSU,Days.SUNDAY);
+        return tables;
     }
 
     public static User login() {

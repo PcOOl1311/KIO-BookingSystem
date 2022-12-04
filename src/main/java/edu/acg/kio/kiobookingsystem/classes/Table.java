@@ -109,7 +109,7 @@ public class Table {
     }
 
     public String toFile() {
-        return tableName + "," + type + "," + minDrinks + "," + maxPeople + "," + tableSlot1 + "," + tableSlot2 + "\n";
+        return tableName + "," + type + "," + minDrinks + "," + maxPeople + "," + tableSlot1.getCustomer().getName() + "," + tableSlot2.getCustomer().getName() + "\n";
 
     }
 

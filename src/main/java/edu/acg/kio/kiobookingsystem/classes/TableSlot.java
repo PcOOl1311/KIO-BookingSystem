@@ -95,7 +95,7 @@ public class TableSlot {
     }
 
     public String toFile() {
-        return tableName + "," + timeSlot + "," + customer.getName() + "," + drink.getName() + "," + amountOfPeople + day.toString()+ "\n";
+        return tableName + "," + timeSlot + "," + customer.getName() + "," + drink.getName() + "," + amountOfPeople + "," + day.toString()+ "\n";
 
     }
 }

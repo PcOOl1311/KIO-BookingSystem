@@ -9,9 +9,7 @@ import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
@@ -47,10 +45,35 @@ public class TableManagement {
         return temp;
     }
 
+    public static void writeTablesToFile(ArrayList<Table> tables) throws IOException {
+        File file = new File("files/tables.csv");
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        for (Table t : tables){
+            bw.write(t.toFile());
+        }
+        bw.close();
+        fw.close();
+    }
+
+    public static void writeTableSlotsToFile(ArrayList<TableSlot> tableSlots) throws IOException {
+        File file = new File("files/tableSlots.csv");
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        for (TableSlot ts : tableSlots){
+            bw.write(ts.toFile());
+        }
+        bw.close();
+        fw.close();
+    }
+
     public static TableSlot searchTableSlot(String searchTerm,ArrayList<TableSlot> array){
         TableSlot temp = null;
         for(TableSlot tb: array){
             if(tb.getTableName().equals(searchTerm)) temp = tb;
+        }
+        for(TableSlot tb: array){
+            if(tb.getCustomer().getName().equals(searchTerm)) temp = tb;
         }
         return temp;
     }
