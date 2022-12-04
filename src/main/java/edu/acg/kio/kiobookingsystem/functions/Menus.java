@@ -21,21 +21,14 @@ public class Menus {
         User Guest = new User("Guest", "-", "None", UserType.GUEST);
         while (true) {
             while (true) {
-                    int option;
-                while (true) {
-                    option = 0;
+                    int option=0;
+                while (option == 0) {
                     System.out.println(
                         "Choose an option: \n" +
                                 "1.Login/Registration\n" +
                                 "2.Continue as customer\n" +
                                 "3.EXIT\n");
-                    try {
-                        option = input.nextInt();
-                        String Junk = input.nextLine();
-                        break;
-                    } catch (Exception e) {
-                        System.out.println("Invalid Input Please Input Integers 1-3");
-                    }
+                    option = userValidation(1,3);
                 }
 
                 switch (option) {
@@ -73,15 +66,15 @@ public class Menus {
         User activeUser = null;
         Scanner input = new Scanner(System.in);
         while (true) {
-            System.out.println("Choose an option: \n" +
-                    "1.Login\n" +
-                    "2.Register\n" +
-                    "3.BACK\n");
-
             int option = 0;
-            option = input.nextInt();
-            String Junk = input.nextLine();
-            int output=0;
+            while (option == 0) {
+                System.out.println("Choose an option: \n" +
+                        "1.Login\n" +
+                        "2.Register\n" +
+                        "3.BACK\n");
+                option = userValidation(1,3);
+            }
+
             switch (option) {
                 case 1: {
                     activeUser = login();
@@ -94,7 +87,6 @@ public class Menus {
                     else if(activeUser!=null)continue;
                 }
                 case 3: {
-                    output = 1;
                     break;
                 }
                 default:
@@ -109,16 +101,16 @@ public class Menus {
     public static void customerMenu(User loggedInUser) {
         Scanner input = new Scanner(System.in);
         int option = 0;
+        while (option == 0) {
+            System.out.println("What do you want to do? \n");
+            System.out.println(
+                    "1. Make a reservation\n" +
+                    "2. Check availability\n" +
+                    "3. Check your reservations\n" +
+                    "4. BACK");
+            option = userValidation(1,4);
+        }
 
-        System.out.println("What do you want to do? \n");
-        System.out.println(
-                "1. Make a reservation\n" +
-                "2. Check availability\n" +
-                "3. Check your reservations\n" +
-                "4. BACK");
-
-        option = input.nextInt();
-        String Junk = input.nextLine();
         switch (option) {
             case 1:
                 Days tempDay = null;
@@ -166,13 +158,16 @@ public class Menus {
     public static void employeeMenu(User loggedInUser) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
         while (true) {
-            System.out.println("What do you want to do? \n" +
-                    "1. Add Reservation\n" +
-                    "2. Search Reservation\n" +
-                    "3. View Reservations \n" +
-                    "4. BACK \n");
 
             int option = 0;
+            while (option == 0) {
+                System.out.println("What do you want to do? \n" +
+                        "1. Add Reservation\n" +
+                        "2. Search Reservation\n" +
+                        "3. View Reservations \n" +
+                        "4. BACK \n");
+                option = userValidation(1, 4);
+            }
             switch (option) {
                 case 1:
                     TableSlot newTableSlot = newReservation();
@@ -194,8 +189,7 @@ public class Menus {
                     System.out.println("Please type in an integer from 1-4");
 
             }
-
-
+            break;
         }
     }
 
@@ -203,12 +197,14 @@ public class Menus {
         if (user.getUserType().equals(UserType.EMPLOYEE)) {
             int option = 0;
             while (true) {
-
-                System.out.println("What do you want to do? \n" +
-                        "1. Edit Reservation\n" +
-                        "2. Delete Reservation\n" +
-                        "3. Get Reservation \n" +
-                        "4. BACK \n");
+                while (option == 0) {
+                    System.out.println("What do you want to do? \n" +
+                            "1. Edit Reservation\n" +
+                            "2. Delete Reservation\n" +
+                            "3. Get Reservation \n" +
+                            "4. BACK \n");
+                    option = userValidation(1, 4);
+                }
 
                 switch (option) {
                     case 1:
@@ -226,23 +222,24 @@ public class Menus {
                     default:
                         System.out.println("Please type in an integer from 1-4");
                 }
+            break;
             }
         }
     }
 
     public static void adminMenu(User loggedInUser) {
         Scanner input = new Scanner(System.in);
-        int option = 0;
         while (true) {
-
-            System.out.println("What do you want to do? \n" +
-                    "1. Manage Tables\n" +
-                    "2. Manage Reservations\n" +
-                    "3. Manage Drinks \n" +
-                    "4. Manage Users \n" +
-                    "5. Sign Out \n");
-            option = input.nextInt();
-            String Junk = input.nextLine();
+            int option = 0;
+            while (option == 0) {
+                System.out.println("What do you want to do? \n" +
+                        "1. Manage Tables\n" +
+                        "2. Manage Reservations\n" +
+                        "3. Manage Drinks \n" +
+                        "4. Manage Users \n" +
+                        "5. Sign Out \n");
+                option = userValidation(1, 5);
+            }
             switch (option) {
                 case 1:
                     System.out.println(" Manage Tables");
@@ -272,15 +269,18 @@ public class Menus {
 
     public static void adminManageTables() {
         Scanner input = new Scanner(System.in);
-        int option = 0;
         while (true) {
+            int option = 0;
 
-            System.out.println("What do you want to do? \n" +
-                    "1. Add Table\n" +
-                    "2. Edit Table\n" +
-                    "3. Delete Table \n" +
-                    "4. Get Table \n" +
-                    "5. BACK \n");
+            while (option == 0) {
+                System.out.println("What do you want to do? \n" +
+                        "1. Add Table\n" +
+                        "2. Edit Table\n" +
+                        "3. Delete Table \n" +
+                        "4. Get Table \n" +
+                        "5. BACK \n");
+                option = userValidation(1, 5);
+            }
             option = input.nextInt(); ;
             switch (option) {
                 case 1:
@@ -306,16 +306,18 @@ public class Menus {
 
     public static void adminManageReservations() {
         Scanner input = new Scanner(System.in);
-        int option = 0;
         while (true) {
+            int option = 0;
 
-            System.out.println("What do you want to do? \n" +
-                    "1. Add TableSlot\n" +
-                    "2. Edit TableSlot\n" +
-                    "3. Delete TableSlot \n" +
-                    "4. Get TableSlot \n" +
-                    "5. BACK \n");
-            option = input.nextInt(); ;
+            while (option == 0) {
+                option = userValidation(1, 5);
+                System.out.println("What do you want to do? \n" +
+                        "1. Add TableSlot\n" +
+                        "2. Edit TableSlot\n" +
+                        "3. Delete TableSlot \n" +
+                        "4. Get TableSlot \n" +
+                        "5. BACK \n");
+            }
             switch (option) {
                 case 1:
                     System.out.println("Add TableSlot");
@@ -340,15 +342,16 @@ public class Menus {
 
     public static void adminManageDrinks() {
         Scanner input = new Scanner(System.in);
-        int option = 0;
         while (true) {
-
-            System.out.println("What do you want to do? \n" +
-                    "1. Add Drink\n" +
-                    "2. Edit Drink\n" +
-                    "3. Delete Drink \n" +
-                    "4. BACK \n");
-            option = input.nextInt(); ;
+            int option = 0;
+            while (option == 0) {
+                System.out.println("What do you want to do? \n" +
+                        "1. Add Drink\n" +
+                        "2. Edit Drink\n" +
+                        "3. Delete Drink \n" +
+                        "4. BACK \n");
+                option = userValidation(1, 4);
+            }
             switch (option) {
                 case 1:
                     System.out.println("Add Drink");
@@ -370,17 +373,18 @@ public class Menus {
 
     public static void adminManageUsers() {
         Scanner input = new Scanner(System.in);
-        int option = 0;
         while (true) {
-
-            System.out.println("What do you want to do? \n" +
-                    "1. Add New User\n" +
-                    "2. Change Name\n" +
-                    "3. Change Info \n" +
-                    "4. Delete User \n" +
-                    "5. Get User \n" +
-                    "6. BACK \n");
-            option = input.nextInt(); ;
+            int option = 0;
+            while (option == 0) {
+                System.out.println("What do you want to do? \n" +
+                        "1. Add New User\n" +
+                        "2. Change Name\n" +
+                        "3. Change Info \n" +
+                        "4. Delete User \n" +
+                        "5. Get User \n" +
+                        "6. BACK \n");
+                option = userValidation(1, 6);
+            }
             switch (option) {
                 case 1:
                     System.out.println("Add New User");
