@@ -6,6 +6,7 @@ import edu.acg.kio.kiobookingsystem.classes.User;
 import edu.acg.kio.kiobookingsystem.enumerators.Days;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -37,6 +38,25 @@ public class SubSystems {
     }
 
     public SubSystems() throws FileNotFoundException {
+    }
+
+    public static int userValidation(int minRange,int maxRange){
+        Scanner input = new Scanner(System.in);
+        int returnValue = 0;
+        try {
+            while (true) {
+                System.out.println("Insert a Value Between " + minRange + " and " + maxRange);
+
+                returnValue = input.nextInt();
+                if (returnValue >= minRange && returnValue <= maxRange) return returnValue;
+                else System.out.println("Invalid Input");
+
+
+            }
+        }catch (Exception e){
+            System.out.println("Invalid Input");
+        }
+        return returnValue;
     }
 
     public static TableSlot newReservation() throws FileNotFoundException {
@@ -106,7 +126,7 @@ public class SubSystems {
                     }
                 }
             }
-        if(tempUser!=null)break;
+            if (tempUser != null) break;
         }
         return tempUser;
 
@@ -163,12 +183,12 @@ public class SubSystems {
         System.out.flush();
         // CLEARING SCREEN COMMAND (END)
     }
-/*
+
     public static TableSlot makeReservation() {
         Scanner input = new Scanner(System.in);
         Days tempDay = null;
         TimeSlot tempTimeSlot = null;
-        while (true){
+        while (true) {
             System.out.println("Insert Table Name: \n");
             String reservationName = input.nextLine();
 
@@ -210,4 +230,6 @@ public class SubSystems {
 
     return tempTableSlot;
     }*/
+        }
+    }
 }
