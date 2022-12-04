@@ -8,7 +8,6 @@ import edu.acg.kio.kiobookingsystem.enumerators.Days;
 import edu.acg.kio.kiobookingsystem.enumerators.TableType;
 import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -61,7 +60,7 @@ public class SubSystems {
         return returnValue;
     }
 
-    public static TableSlot newReservation() throws FileNotFoundException {
+    /*public static TableSlot newReservation(User loggedInUser) throws FileNotFoundException {
         TableSlot tempTS = null;
         while (true) {
             CLS();
@@ -101,6 +100,8 @@ public class SubSystems {
         }
         return tempTS;
     }
+
+     */
 
     public static User login() {
         Scanner input = new Scanner(System.in);
@@ -278,7 +279,7 @@ public class SubSystems {
         insertReservations(tableSlots,tablesSU,Days.SUNDAY);
         return tables;
     }
-    public static TableSlot makeReservation(User loggedInUser) throws IOException {
+    public static TableSlot newReservation(User loggedInUser) throws IOException {
         ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
         ArrayList<Table> tables = readTableFromFile("Files/tables.csv");
         Scanner input = new Scanner(System.in);

@@ -2,15 +2,11 @@ package edu.acg.kio.kiobookingsystem.functions;
 
 import edu.acg.kio.kiobookingsystem.classes.TableSlot;
 import edu.acg.kio.kiobookingsystem.classes.User;
-import edu.acg.kio.kiobookingsystem.enumerators.Days;
-import edu.acg.kio.kiobookingsystem.enumerators.TimeSlot;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.Scanner;
 
 import static edu.acg.kio.kiobookingsystem.functions.SubSystems.*;
@@ -115,7 +111,7 @@ public class Menus {
         switch (option) {
             case 1:
 
-                makeReservation(loggedInUser);
+                newReservation(loggedInUser);
 
             case 2:
 
@@ -129,7 +125,7 @@ public class Menus {
         }
     }
 
-    public static void employeeMenu(User loggedInUser) throws FileNotFoundException {
+    public static void employeeMenu(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
         while (true) {
 
@@ -144,7 +140,7 @@ public class Menus {
             }
             switch (option) {
                 case 1:
-                    TableSlot newTableSlot = newReservation();
+                    TableSlot newTableSlot = newReservation(loggedInUser);
                     if(newTableSlot != null) System.out.println("Reservation Made Successfully");
                     else System.out.println("Reservation not made");
                     continue;
@@ -201,7 +197,7 @@ public class Menus {
         }
     }
 
-    public static void adminMenu(User loggedInUser) {
+    public static void adminMenu(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
         while (true) {
             int option = 0;
@@ -217,19 +213,19 @@ public class Menus {
             switch (option) {
                 case 1:
                     System.out.println(" Manage Tables");
-                    adminManageTables();
+                    adminManageTables(loggedInUser);
                     continue;
                 case 2:
                     System.out.println("Manage Reservations");
-                    adminManageReservations();
+                    adminManageReservations(loggedInUser);
                     continue;
                 case 3:
                     System.out.println("Manage Drinks");
-                    adminManageDrinks();
+                    adminManageDrinks(loggedInUser);
                     continue;
                 case 4:
                     System.out.println("Manage Users");
-                    adminManageUsers();
+                    adminManageUsers(loggedInUser);
                     continue;
                 case 5:
                     break;
@@ -241,7 +237,7 @@ public class Menus {
     }
 
 
-    public static void adminManageTables() {
+    public static void adminManageTables(User loggedInUser) {
         Scanner input = new Scanner(System.in);
         while (true) {
             int option = 0;
@@ -278,7 +274,7 @@ public class Menus {
         }
     }
 
-    public static void adminManageReservations() {
+    public static void adminManageReservations(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
         while (true) {
             int option = 0;
@@ -294,7 +290,7 @@ public class Menus {
             }
             switch (option) {
                 case 1:
-                    System.out.println("Add TableSlot");
+                    newReservation(loggedInUser);
                     break;
                 case 2:
                     System.out.println("Edit TableSlot");
@@ -314,7 +310,7 @@ public class Menus {
         }
     }
 
-    public static void adminManageDrinks() {
+    public static void adminManageDrinks(User loggedInUser) {
         Scanner input = new Scanner(System.in);
         while (true) {
             int option = 0;
@@ -345,7 +341,7 @@ public class Menus {
         }
     }
 
-    public static void adminManageUsers() {
+    public static void adminManageUsers(User loggedInUser) {
         Scanner input = new Scanner(System.in);
         while (true) {
             int option = 0;

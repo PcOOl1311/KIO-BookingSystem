@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 import static edu.acg.kio.kiobookingsystem.functions.Menus.loginRegisterMenu;
 import static edu.acg.kio.kiobookingsystem.functions.Menus.mainMenu;
-import static edu.acg.kio.kiobookingsystem.functions.SubSystems.login;
-import static edu.acg.kio.kiobookingsystem.functions.SubSystems.register;
+import static edu.acg.kio.kiobookingsystem.functions.SubSystems.*;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.copyFile;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.insertReservations;
 
@@ -26,7 +25,7 @@ public class TestingFunctions {
         Drink d1 = new Drink("vodka",90.2 );
         System.out.println(d1);
 
-        User u1 = new User("babis","iambabis2000","6923573621", UserType.CUSTOMER);
+        User u1 = new User("babis","iambabis2000","6923573621", UserType.ADMIN);
         System.out.println(u1);
 
         TableSlot ts1 = new TableSlot(TimeSlot.LATE,u1,d1,5);
