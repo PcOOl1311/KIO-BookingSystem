@@ -20,6 +20,7 @@ import static edu.acg.kio.kiobookingsystem.functions.UserManagement.*;
 
 public class TableManagement {
 
+    //Search function that return 1 Table from the Array;
     public static Table searchTable(String searchTerm,ArrayList<Table> array){
         Table temp = null;
         for(Table tb: array){
@@ -28,6 +29,7 @@ public class TableManagement {
         return temp;
     }
 
+    //Check if a Table slot with that specific timeSlots Day and Name already exists
     public static TableSlot searchIfTableSlotExists(TableSlot ts,ArrayList<TableSlot> array){
         TableSlot temp = null;
         for(TableSlot tableSlot: array){
@@ -47,6 +49,7 @@ public class TableManagement {
         return temp;
     }
 
+        //Function to write the Arraylist from the parameter to the Files
     public static void writeTablesToFile(ArrayList<Table> tables) throws IOException {
         File file = new File("files/tables.csv");
         FileWriter fw = new FileWriter(file);
@@ -57,7 +60,7 @@ public class TableManagement {
         bw.close();
         fw.close();
     }
-
+        //Function to Write the Reservations to a file
     public static void writeTableSlotsToFile(ArrayList<TableSlot> tableSlots) throws IOException {
         File file = new File("files/tableSlots.csv");
         FileWriter fw = new FileWriter(file);
@@ -68,7 +71,7 @@ public class TableManagement {
         bw.close();
         fw.close();
     }
-
+        //Search Function for one Reservation Search
     public static TableSlot searchTableSlot(String searchTerm,ArrayList<TableSlot> array){
         TableSlot temp = null;
         for (TableSlot tb : array) {
@@ -76,7 +79,7 @@ public class TableManagement {
         }
         return temp;
     }
-
+            //Search Function for Array List search
     public static ArrayList<TableSlot> searchTableSlots(String searchTerm,ArrayList<TableSlot> array){
         ArrayList<TableSlot> temp = null;
         searchTerm = searchTerm.toLowerCase(Locale.ROOT);
@@ -119,7 +122,7 @@ public class TableManagement {
         }
         return temp;
     }
-
+        //Reading Function from csv file to ARRAYLIST
     public static ArrayList<TableSlot> readTableSlotFromFile() throws FileNotFoundException{
         ArrayList<TableSlot> tablesSlotArray = new ArrayList<>();
         ArrayList<User> usersArray = readUsersFromFile();
@@ -158,7 +161,7 @@ public class TableManagement {
 
         return tablesSlotArray;
     }
-
+        // READING function from csv file to arraylist
     public static ArrayList<Table> readTableFromFile(String pathName) throws FileNotFoundException {
         ArrayList<Table> tablesArray = new ArrayList<>();
         ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
@@ -199,17 +202,17 @@ public class TableManagement {
         return tablesArray;
     }
 
-
+        //Replace Function for all the workday and availability csv files
     public static void copyFile() throws IOException {
         String[] days ={"M","T","W","R","F","ST","SU"};
 
-        File directory =new File("files/tablesPerWeek");
+        File directory =new File("files/tablesPerWeek"); //Deletes all the directory files
         FileUtils.cleanDirectory(directory);
 
 
-        File originalFile = new File("files/tables.csv");
+        File originalFile = new File("files/tables.csv"); //Original copy of the tables
 
-        for(String d:days){
+        for(String d:days){  // For everyday copy the tables file and format the everyday of the week
             String pathName = "files/tablesPerWeek/tables" + d + ".csv";
             File newFile = new File(pathName);
             try{
@@ -223,6 +226,8 @@ public class TableManagement {
         }
 
     }
+
+    //Function that allocates the Reservations Made to each day of the week and replaces the ones that have a pending day
     public static void insertReservations(ArrayList<TableSlot> tableSlots,ArrayList<Table> tableDay,Days day) {
         Table temp = null;
         for(Table tb:tableDay){
