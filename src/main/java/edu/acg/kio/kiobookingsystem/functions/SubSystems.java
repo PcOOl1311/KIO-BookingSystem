@@ -41,6 +41,7 @@ public class SubSystems {
     }
 
     public SubSystems() throws FileNotFoundException {
+
     }
 //Validation of the input of the User for the Menu options
     public static int userValidation(int minRange,int maxRange){
@@ -170,7 +171,6 @@ public class SubSystems {
             for (Table t : table) {
                 if (t.getTableSlot1().getCustomer().getName().equals("-")) {
                     System.out.println(t.getTableName() + " " + t.getTableSlot1().getTimeSlot().toString() + " " + t.getTableSlot1().getDay().toString());
-                    ;
                 }
                 if (t.getTableSlot2().getCustomer().getName().equals("--")) {
                     System.out.println(t.getTableName() + " " + t.getTableSlot2().getTimeSlot().toString() + " " + t.getTableSlot2().getDay().toString());
@@ -182,7 +182,6 @@ public class SubSystems {
                     System.out.println(t.getTableName() + " " + t.getTableSlot1().getTimeSlot().toString()
                             + " " + t.getTableSlot1().getDay().toString()
                             + " " +t.getTableSlot1().getCustomer().getName());
-                    ;
                 }
                 if (!t.getTableSlot2().getCustomer().getName().equals("--")) {
                     System.out.println(t.getTableName() + " " + t.getTableSlot2().getTimeSlot().toString()
@@ -299,7 +298,7 @@ public class SubSystems {
     }
 
     //New table function to add a table write on the files and replace all the weeks tables;
-    public static ArrayList<Table> newTable() throws IOException, IOException {
+    public static ArrayList<Table> newTable() throws IOException {
         ArrayList<Table> tables = readTableFromFile("files/tables.csv");
         ArrayList<TableSlot> tableSlots =readTableSlotFromFile();
         Table tempTable = null;
