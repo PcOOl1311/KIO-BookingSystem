@@ -1,15 +1,14 @@
 package edu.acg.kio.kiobookingsystem;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static edu.acg.kio.kiobookingsystem.functions.Menus.mainMenu;
 
 public class Main {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws FileNotFoundException {
+        mainMenu();
     }
 }

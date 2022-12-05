@@ -62,7 +62,7 @@ public class SubSystems {
         return returnValue;
     }
 
-
+        //Edit Function the Reservations
     public static TableSlot editTableSlot(TableSlot tableSlot,String searchTerm) throws IOException {
         Scanner input = new Scanner(System.in);
         ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
@@ -106,7 +106,7 @@ public class SubSystems {
         }
         return tempTableSlot;
     }
-
+        //Show available tables either free or occupied
     public static void showAvailability(String availability) throws FileNotFoundException {
         ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
         ArrayList<Table> tablesM = readTableFromFile("files/tablesPerWeek/tablesM.csv");
@@ -146,9 +146,12 @@ public class SubSystems {
         System.out.println("---------------------------------");
     }
 
+
     public static void weeklyAvailability(ArrayList<Table> table,String availability) {
+        //sample users that show the availability
         User u1 = new User("-","emptyObject","888-444-3333",GUEST);
         User u2 = new User("--","emptyObject","888-444-3333",GUEST);
+        //Check if we want to see empty of full reservations
         if(Objects.equals(availability, "empty")) {
             for (Table t : table) {
                 if (t.getTableSlot1().getCustomer().getName().equals("-")) {
@@ -176,6 +179,7 @@ public class SubSystems {
         }
     }
 
+        // login function that returns the logged-in user
     public static User login() {
         Scanner input = new Scanner(System.in);
         User tempUser = null;
@@ -207,7 +211,7 @@ public class SubSystems {
         return tempUser;
 
     }
-
+        // Creation of new user and inserting into the files
     public static User register() {
         User tempUser = null;
         Scanner input = new Scanner(System.in);
@@ -260,6 +264,7 @@ public class SubSystems {
         System.out.flush();
         // CLEARING SCREEN COMMAND (END)
     }
+    //Validating the type of table VIP , BACKSTAGE, NORMAL
     public static TableType tableTypeValidation(){
         TableType tableType = null;
         Scanner input = new Scanner(System.in);
@@ -279,6 +284,7 @@ public class SubSystems {
         return tableType;
     }
 
+    //New table function to add a table write on the files and replace all the weeks tables;
     public static ArrayList<Table> newTable() throws IOException, IOException {
         ArrayList<Table> tables = readTableFromFile("files/tables.csv");
         ArrayList<TableSlot> tableSlots =readTableSlotFromFile();
@@ -338,7 +344,7 @@ public class SubSystems {
         return tables;
     }
 
-
+        //Function to update the availability of the Tables
     public static void updateTables(ArrayList<Table> tables) throws IOException {
         ArrayList<TableSlot> tableSlots =readTableSlotFromFile();
         writeTablesToFile(tables);
@@ -359,7 +365,7 @@ public class SubSystems {
         insertReservations(tableSlots,tablesSU,Days.SUNDAY);
 
     }
-
+        //Function of add a new drink option
     public static Drink addDrink(ArrayList<Drink> drinks) throws IOException {
         Scanner input = new Scanner(System.in);
         Drink tempDrink = null;
@@ -381,7 +387,7 @@ public class SubSystems {
        writeDrinksToFile(drinks);
         return tempDrink;
     }
-
+        //New reservation function
     public static TableSlot newReservation(User loggedInUser) throws IOException {
         ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
         ArrayList<Table> tables = readTableFromFile("Files/tables.csv");
