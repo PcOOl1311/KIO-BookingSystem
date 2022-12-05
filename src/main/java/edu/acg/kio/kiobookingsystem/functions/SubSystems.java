@@ -16,7 +16,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static edu.acg.kio.kiobookingsystem.enumerators.UserType.GUEST;
 import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.searchDrink;
+import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.writeDrinksToFile;
 import static edu.acg.kio.kiobookingsystem.functions.TableManagement.*;
 import static edu.acg.kio.kiobookingsystem.functions.UserManagement.searchUser;
 
@@ -40,7 +42,7 @@ public class SubSystems {
 
     public SubSystems() throws FileNotFoundException {
     }
-
+//Validation of the input of the User for the Menu options
     public static int userValidation(int minRange,int maxRange){
         Scanner input = new Scanner(System.in);
         int returnValue = 0;
@@ -60,48 +62,119 @@ public class SubSystems {
         return returnValue;
     }
 
-    /*public static TableSlot newReservation(User loggedInUser) throws FileNotFoundException {
-        TableSlot tempTS = null;
-        while (true) {
-            CLS();
-            Scanner input = new Scanner(System.in);
-            User user = null;
-            System.out.println("Set Customer Name: \n");
-            String customerName = input.nextLine();
-            if (customerName.equals("BACK")) return null;
-            else {
-                user = searchUser(customerName, users);
+
+    public static TableSlot editTableSlot(TableSlot tableSlot,String searchTerm) throws IOException {
+        Scanner input = new Scanner(System.in);
+        ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
+        TableSlot tempTableSlot = tableSlot;
+        String tableName = tableSlot.getTableName();
+        TimeSlot timeSlot = tableSlot.getTimeSlot();
+        User customer = tableSlot.getCustomer();
+        Drink drink = tableSlot.getDrink();
+        int amountOfPeople = tableSlot.getAmountOfPeople();
+        Days day = tableSlot.getDay();
+
+        if (searchTerm.equals("TableName")) {
+            System.out.println("input the table you want ");
+            tableName = input.nextLine();
+        } else if (searchTerm.equals("TableSlot")) {
+            while (true) {
+                System.out.println("Input EARLY or LATE");
+                String userInput = input.nextLine();
+                try {
+                    timeSlot = TimeSlot.valueOf(userInput);
+                } catch (Exception e) {
+                    System.out.println("Invalid Input");
+                }
             }
-            System.out.println("Set Table: \n");
-            String table = input.nextLine();
-
-            System.out.println("Set Time Slot: \n");
-            TimeSlot timeSlot = TimeSlot.valueOf(input.nextLine());
-
-            System.out.println("Set Drink Type: \n");
-            String drinkType = input.nextLine();
-            Drink drink = searchDrink(drinkType, drinks);
-
-            System.out.println("Set Number of People: \n");
-            int peopleNum = input.nextInt();
-
-            System.out.println("Set Day : \n");
-            Days day = Days.valueOf(input.nextLine());
-
-            tempTS = new TableSlot(table, timeSlot, user, drink, peopleNum, day);
-            ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
-            if (searchIfTableSlotExists(tempTS, tableSLots) != null) {
-                break;
-
-            } else {
-                System.out.println("This Table and Time is occupied");
-                return null;
-            }
+        } else if (searchTerm.equals("Drink")) {
+            System.out.println("Input new Drink name");
+            drink = searchDrink(input.nextLine(), drinks);
+        } else if (searchTerm.equals("amountOfPeople")) {
+            System.out.println("input new amount of people");
+            amountOfPeople = input.nextInt();
+            String Junk = input.nextLine();
+        } else if (searchTerm.equals("Day")) {
+            System.out.println("What day you want");
+            day = Days.valueOf(input.nextLine());
         }
-        return tempTS;
+
+        tempTableSlot= new TableSlot(tableName,timeSlot,customer,drink,amountOfPeople,day);
+        if(searchIfTableSlotExists(tempTableSlot,tableSlots)==null){
+            writeTableSlotsToFile(tableSlots);
+            return tempTableSlot;
+        }
+        return tempTableSlot;
     }
 
-     */
+    public static void showAvailability(String availability) throws FileNotFoundException {
+        ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
+        ArrayList<Table> tablesM = readTableFromFile("files/tablesPerWeek/tablesM.csv");
+        ArrayList<Table> tablesT = readTableFromFile("files/tablesPerWeek/tablesT.csv");
+        ArrayList<Table> tablesW = readTableFromFile("files/tablesPerWeek/tablesW.csv");
+        ArrayList<Table> tablesR = readTableFromFile("files/tablesPerWeek/tablesR.csv");
+        ArrayList<Table> tablesF = readTableFromFile("files/tablesPerWeek/tablesF.csv");
+        ArrayList<Table> tablesST = readTableFromFile("files/tablesPerWeek/tablesST.csv");
+        ArrayList<Table> tablesSU = readTableFromFile("files/tablesPerWeek/tablesSU.csv");
+        insertReservations(tableSlots,tablesM,Days.MONDAY);
+        insertReservations(tableSlots,tablesT,Days.TUESDAY);
+        insertReservations(tableSlots,tablesW,Days.WEDNESDAY);
+        insertReservations(tableSlots,tablesR,Days.THURSDAY);
+        insertReservations(tableSlots,tablesF,Days.FRIDAY);
+        insertReservations(tableSlots,tablesST,Days.SATURDAY);
+        insertReservations(tableSlots,tablesSU,Days.SUNDAY);
+        System.out.println("For Monday:");
+        weeklyAvailability(tablesM,availability) ;
+        System.out.println("---------------------------------");
+        System.out.println("For Tuesday:");
+        weeklyAvailability(tablesT,availability);
+        System.out.println("---------------------------------");
+        System.out.println("For WednesdayY:");
+        weeklyAvailability(tablesW,availability);
+        System.out.println("---------------------------------");
+        System.out.println("For Thursday:");
+        weeklyAvailability(tablesR,availability);
+        System.out.println("---------------------------------");
+        System.out.println("For Friday");
+        weeklyAvailability(tablesF,availability);
+        System.out.println("---------------------------------");
+        System.out.println("For Saturday:");
+        weeklyAvailability(tablesST,availability);
+        System.out.println("---------------------------------");
+        System.out.println("For Sunday:");
+        weeklyAvailability(tablesSU,availability);
+        System.out.println("---------------------------------");
+    }
+
+    public static void weeklyAvailability(ArrayList<Table> table,String availability) {
+        User u1 = new User("-","emptyObject","888-444-3333",GUEST);
+        User u2 = new User("--","emptyObject","888-444-3333",GUEST);
+        if(Objects.equals(availability, "empty")) {
+            for (Table t : table) {
+                if (t.getTableSlot1().getCustomer().getName().equals("-")) {
+                    System.out.println(t.getTableName() + " " + t.getTableSlot1().getTimeSlot().toString() + " " + t.getTableSlot1().getDay().toString());
+                    ;
+                }
+                if (t.getTableSlot2().getCustomer().getName().equals("--")) {
+                    System.out.println(t.getTableName() + " " + t.getTableSlot2().getTimeSlot().toString() + " " + t.getTableSlot2().getDay().toString());
+                }
+            }
+        }else if(Objects.equals(availability, "full")) {
+            for (Table t : table) {
+                if (!t.getTableSlot1().getCustomer().getName().equals("-")) {
+                    System.out.println(t.getTableName() + " " + t.getTableSlot1().getTimeSlot().toString()
+                            + " " + t.getTableSlot1().getDay().toString()
+                            + " " +t.getTableSlot1().getCustomer().getName());
+                    ;
+                }
+                if (!t.getTableSlot2().getCustomer().getName().equals("--")) {
+                    System.out.println(t.getTableName() + " " + t.getTableSlot2().getTimeSlot().toString()
+                            + " " + t.getTableSlot2().getDay().toString()
+                            + " " + t.getTableSlot2().getCustomer().getName());
+                }
+            }
+        }
+    }
 
     public static User login() {
         Scanner input = new Scanner(System.in);
@@ -177,6 +250,7 @@ public class SubSystems {
             System.out.println("Account has been registered successfully");
             break;
         }
+        users.add(tempUser);
         return tempUser;
     }
 
@@ -260,7 +334,13 @@ public class SubSystems {
             tempTable = new Table(tableName,tableType,minDrinks,maxPeople,tableSlotE,tableSlotL);
             tables.add(tempTable);
         }
+        updateTables(tables);
+        return tables;
+    }
 
+
+    public static void updateTables(ArrayList<Table> tables) throws IOException {
+        ArrayList<TableSlot> tableSlots =readTableSlotFromFile();
         writeTablesToFile(tables);
         copyFile();
         ArrayList<Table> tablesM = TableManagement.readTableFromFile("files/tablesPerWeek/tablesM.csv");
@@ -277,8 +357,31 @@ public class SubSystems {
         insertReservations(tableSlots,tablesF,Days.FRIDAY);
         insertReservations(tableSlots,tablesST,Days.SATURDAY);
         insertReservations(tableSlots,tablesSU,Days.SUNDAY);
-        return tables;
+
     }
+
+    public static Drink addDrink(ArrayList<Drink> drinks) throws IOException {
+        Scanner input = new Scanner(System.in);
+        Drink tempDrink = null;
+        Double price = 0.0;
+        System.out.println("Input new Drink's Name");
+        String name = input.nextLine();
+       while (true) {
+           System.out.println("insert a price");
+           String userInput = input.nextLine();
+           try {
+               price = Double.parseDouble(userInput);
+               break;
+           }catch (Exception e){
+               System.out.println("Invalid Input please enter a double");
+           }
+       }
+       tempDrink= new Drink(name,price);
+       drinks.add(tempDrink);
+       writeDrinksToFile(drinks);
+        return tempDrink;
+    }
+
     public static TableSlot newReservation(User loggedInUser) throws IOException {
         ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
         ArrayList<Table> tables = readTableFromFile("Files/tables.csv");

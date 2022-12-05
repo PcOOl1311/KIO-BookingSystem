@@ -13,6 +13,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
+import static edu.acg.kio.kiobookingsystem.enumerators.TimeSlot.EARLY;
+import static edu.acg.kio.kiobookingsystem.enumerators.TimeSlot.LATE;
 import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.*;
 import static edu.acg.kio.kiobookingsystem.functions.UserManagement.*;
 
@@ -69,11 +71,8 @@ public class TableManagement {
 
     public static TableSlot searchTableSlot(String searchTerm,ArrayList<TableSlot> array){
         TableSlot temp = null;
-        for(TableSlot tb: array){
-            if(tb.getTableName().equals(searchTerm)) temp = tb;
-        }
-        for(TableSlot tb: array){
-            if(tb.getCustomer().getName().equals(searchTerm)) temp = tb;
+        for (TableSlot tb : array) {
+            if (tb.getTableName().equals(searchTerm)) temp = tb;
         }
         return temp;
     }
@@ -138,7 +137,7 @@ public class TableManagement {
         while ((inputTS.hasNext())){
             String[] TableSlots = inputTS.nextLine().split(",");
             tableName = TableSlots[0];
-            if(Objects.equals(TableSlots[1],"EARLY")) timeSlot = TimeSlot.EARLY;
+            if(Objects.equals(TableSlots[1],"EARLY")) timeSlot = EARLY;
             else if(Objects.equals(TableSlots[1],"LATE")) timeSlot = TimeSlot.LATE;
             customer = searchUser(TableSlots[2],usersArray);
             drink = searchDrink(TableSlots[3],drinks);
@@ -187,11 +186,13 @@ public class TableManagement {
             else type = TableType.UNASSIGNED;
             minDrinks = Integer.parseInt(Tables[2]);
             maxPeople = Integer.parseInt(Tables[3]);
+
             tableSlot1 = searchTableSlot("emptyE",tableSlots);
             tableSlot2 = searchTableSlot("emptyL",tableSlots);
 
 
             Table table = new Table(tableName,type,minDrinks,maxPeople,tableSlot1,tableSlot2);
+            //System.out.println(table);
             tablesArray.add(table);
         }
 
@@ -226,16 +227,17 @@ public class TableManagement {
         Table temp = null;
         for(Table tb:tableDay){
             tb.getTableSlot1().setDay(day);
+            //System.out.println(tb);
             tb.getTableSlot2().setDay(day);
         }
-        ArrayList<Table> tables = new ArrayList<>();
-        for (TableSlot t : tableSlots) {
-            if (t.getDay().equals(day)) {
-                temp = searchTable(t.getTableName(), tableDay);
-                if (t.getTimeSlot().equals("EARLY")) {
-                    temp.setTableSlot1(t);
-                } else if (t.getTimeSlot().equals("LATE")) {
-                    temp.setTableSlot2(t);
+        for (TableSlot ts : tableSlots) {
+            if (ts.getDay().equals(day)) {
+                temp = searchTable(ts.getTableName(), tableDay);
+                //System.out.println(temp.getTableSlot1().getTimeSlot());
+                if (ts.getTimeSlot().equals(EARLY)) {
+                    temp.setTableSlot1(ts);
+                } else if (ts.getTimeSlot().equals(LATE)) {
+                    temp.setTableSlot2(ts);
                 }
             }
         }

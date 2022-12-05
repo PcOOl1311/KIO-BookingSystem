@@ -1,5 +1,7 @@
 package edu.acg.kio.kiobookingsystem.functions;
 
+import edu.acg.kio.kiobookingsystem.classes.Drink;
+import edu.acg.kio.kiobookingsystem.classes.Table;
 import edu.acg.kio.kiobookingsystem.classes.TableSlot;
 import edu.acg.kio.kiobookingsystem.classes.User;
 import edu.acg.kio.kiobookingsystem.enumerators.UserType;
@@ -9,7 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.searchDrink;
+import static edu.acg.kio.kiobookingsystem.functions.DrinkManagement.writeDrinksToFile;
 import static edu.acg.kio.kiobookingsystem.functions.SubSystems.*;
+import static edu.acg.kio.kiobookingsystem.functions.TableManagement.*;
 
 public class Menus {
     public static void mainMenu() throws FileNotFoundException {
@@ -97,38 +102,37 @@ public class Menus {
 
     public static void customerMenu(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
-        int option = 0;
-        while (option == 0) {
-            System.out.println("What do you want to do? \n");
-            System.out.println(
-                    "1. Make a reservation\n" +
-                    "2. Check availability\n" +
-                    "3. Check your reservations\n" +
-                    "4. BACK");
-            option = userValidation(1,4);
-        }
+        while (true) {
+            int option = 0;
+            while (option == 0) {
+                System.out.println("What do you want to do? \n");
+                System.out.println(
+                        "1. Make a reservation\n" +
+                                "2. Check availability\n" +
+                                "3. BACK");
+                option = userValidation(1, 3);
+            }
+            switch (option) {
+                case 1:
+                    newReservation(loggedInUser);
+                    continue;
 
-        switch (option) {
-            case 1:
+                case 2:
+                    showAvailability("empty");
+                    continue;
+                case 3:
+                    break;
 
-                newReservation(loggedInUser);
-
-            case 2:
-
-            case 3:
-
-            case 4:
-                break;
-
-            default:
-                System.out.println("Please enter an integer from 1-4\n");
+                default:
+                    System.out.println("Please enter an integer from 1-3\n");
+            }
+            break;
         }
     }
 
     public static void employeeMenu(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
         while (true) {
-
             int option = 0;
             while (option == 0) {
                 System.out.println("What do you want to do? \n" +
@@ -138,6 +142,7 @@ public class Menus {
                         "4. BACK \n");
                 option = userValidation(1, 4);
             }
+
             switch (option) {
                 case 1:
                     TableSlot newTableSlot = newReservation(loggedInUser);
@@ -145,12 +150,11 @@ public class Menus {
                     else System.out.println("Reservation not made");
                     continue;
                 case 2:
-                    //reservationMenuEmployee(); //TODO add the search function here AND call on menu to manage reservation
+                    reservationMenuEmployee(loggedInUser);
                     continue;
 
                 case 3:
-                    ArrayList<TableSlot> tableSLots = TableManagement.readTableSlotFromFile();
-                    System.out.println(tableSLots);
+                    showAvailability("full");
                     continue;
 
                 case 4: break;
@@ -159,13 +163,17 @@ public class Menus {
                     System.out.println("Please type in an integer from 1-4");
 
             }
-            break;
         }
     }
 
-    public static void reservationMenuEmployee(User user) {
+    public static void reservationMenuEmployee(User user) throws IOException {
         if (user.getUserType().equals(UserType.EMPLOYEE)) {
             int option = 0;
+            ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
+            Scanner input = new Scanner(System.in);
+            System.out.println("Search for Reservation");
+
+            TableSlot reservation = searchTableSlot(input.nextLine(),tableSlots);
             while (true) {
                 while (option == 0) {
                     System.out.println("What do you want to do? \n" +
@@ -178,21 +186,27 @@ public class Menus {
 
                 switch (option) {
                     case 1:
-                        System.out.println("Edit reservation");
-                        break;
+                        System.out.println("What do you want to edit?(tableName timeSlot drink amountOfPeople day");
+                        String userInput = input.nextLine();
+                        reservation = editTableSlot(reservation,userInput);
+                        continue;
                     case 2:
-                        System.out.println("Delete Reservation");
-                        break;
+
+                        tableSlots.remove(reservation);
+                        copyFile();
+
+                        System.out.println("Reservation Deleted");
+                        continue;
                     case 3:
+                        System.out.println(reservation);
                         System.out.println("Get Reservation");
-                        break;
+                        continue;
                     case 4:
                         break;
-
                     default:
                         System.out.println("Please type in an integer from 1-4");
                 }
-            break;
+                break;
             }
         }
     }
@@ -206,9 +220,8 @@ public class Menus {
                         "1. Manage Tables\n" +
                         "2. Manage Reservations\n" +
                         "3. Manage Drinks \n" +
-                        "4. Manage Users \n" +
-                        "5. Sign Out \n");
-                option = userValidation(1, 5);
+                        "4. Sign Out \n");
+                option = userValidation(1, 4);
             }
             switch (option) {
                 case 1:
@@ -223,24 +236,22 @@ public class Menus {
                     System.out.println("Manage Drinks");
                     adminManageDrinks(loggedInUser);
                     continue;
+
                 case 4:
-                    System.out.println("Manage Users");
-                    adminManageUsers(loggedInUser);
-                    continue;
-                case 5:
                     break;
                 default:
-                    System.out.println("Please type in an integer from 1-5");
+                    System.out.println("Please type in an integer from 1-4");
             }
             break;
         }
     }
 
 
-    public static void adminManageTables(User loggedInUser) {
+    public static void adminManageTables(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
+        ArrayList<Table> tables = readTableFromFile("files/tables.csv");
+        int option = 0;
         while (true) {
-            int option = 0;
 
             while (option == 0) {
                 System.out.println("What do you want to do? \n" +
@@ -254,16 +265,21 @@ public class Menus {
             option = input.nextInt(); ;
             switch (option) {
                 case 1:
+                    tables = newTable();
                     System.out.println("Add Table");
                     break;
                 case 2:
                     System.out.println("Edit Table");
                     break;
                 case 3:
-                    System.out.println("Delete Table");
+                    System.out.println("Search Table Name to be Deleted");
+                    Table tempTable =  searchTable(input.nextLine(),tables);
+                    tables.remove(tempTable);
+                    writeTablesToFile(tables);
+                    copyFile();
                     break;
                 case 4:
-                    System.out.println("Get Table");
+                    System.out.println(tables);
                     break;
                 case 5:
                     break;
@@ -276,8 +292,10 @@ public class Menus {
 
     public static void adminManageReservations(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
+        ArrayList<TableSlot> tableSlots = readTableSlotFromFile();
+        TableSlot tempTableSlot = null;
+        int option = 0;
         while (true) {
-            int option = 0;
 
             while (option == 0) {
                 option = userValidation(1, 5);
@@ -293,14 +311,20 @@ public class Menus {
                     newReservation(loggedInUser);
                     break;
                 case 2:
-                    System.out.println("Edit TableSlot");
+                    System.out.println("What Reservation do you want to edit?");
+                    tempTableSlot = searchTableSlot(input.nextLine(),tableSlots);
+                    System.out.println("What do you want to edit(tableName timeSlot drink amountOfPeople day)");
+                    String searchTerm = input.nextLine();
+                    editTableSlot(tempTableSlot,searchTerm);
                     break;
                 case 3:
-                    System.out.println("Delete TableSlot");
-                    break;
+                    System.out.println("What Reservation do you want to Delete?");
+                    tempTableSlot = searchTableSlot(input.nextLine(),tableSlots);
+                    tableSlots.remove(tempTableSlot);
+                    continue;
                 case 4:
-                    System.out.println("Get TableSlot");
-                    break;
+                    System.out.println(tableSlots);
+                    continue;
                 case 5:
                     break;
                 default:
@@ -310,74 +334,37 @@ public class Menus {
         }
     }
 
-    public static void adminManageDrinks(User loggedInUser) {
+    public static void adminManageDrinks(User loggedInUser) throws IOException {
         Scanner input = new Scanner(System.in);
         while (true) {
             int option = 0;
             while (option == 0) {
                 System.out.println("What do you want to do? \n" +
                         "1. Add Drink\n" +
-                        "2. Edit Drink\n" +
-                        "3. Delete Drink \n" +
-                        "4. BACK \n");
-                option = userValidation(1, 4);
+                        "2. Delete Drink \n" +
+                        "3. BACK \n");
+                option = userValidation(1, 3);
             }
             switch (option) {
                 case 1:
                     System.out.println("Add Drink");
+                    addDrink(drinks);
                     break;
                 case 2:
-                    System.out.println("Edit Drink");
+                    System.out.println("Select Drink to delete");
+                    Drink tempDrink = searchDrink(input.nextLine(),drinks);
+                    drinks.remove(tempDrink);
+                    writeDrinksToFile(drinks);
                     break;
                 case 3:
-                    System.out.println("Delete Drink");
-                    break;
-                case 4:
                     break;
                 default:
-                    System.out.println("Please type in an integer from 1-4");
+                    System.out.println("Please type in an integer from 1-3");
             }
             break;
         }
     }
 
-    public static void adminManageUsers(User loggedInUser) {
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            int option = 0;
-            while (option == 0) {
-                System.out.println("What do you want to do? \n" +
-                        "1. Add New User\n" +
-                        "2. Change Name\n" +
-                        "3. Change Info \n" +
-                        "4. Delete User \n" +
-                        "5. Get User \n" +
-                        "6. BACK \n");
-                option = userValidation(1, 6);
-            }
-            switch (option) {
-                case 1:
-                    System.out.println("Add New User");
-                    break;
-                case 2:
-                    System.out.println("Change Name");
-                    break;
-                case 3:
-                    System.out.println("Change Info");
-                    break;
-                case 4:
-                    System.out.println("Delete User");
-                    break;
-                case 5:
-                    System.out.println("Get User");
-                    break;
-                case 6:
-                    break;
-                default:
-                    System.out.println("Please type in an integer from 1-6");
-            }
-            break;
-        }
-    }
+
 }
 
