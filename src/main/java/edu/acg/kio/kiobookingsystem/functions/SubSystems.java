@@ -73,38 +73,52 @@ public class SubSystems {
         Drink drink = tableSlot.getDrink();
         int amountOfPeople = tableSlot.getAmountOfPeople();
         Days day = tableSlot.getDay();
+        while (true) {
 
-        if (searchTerm.equals("TableName")) {
-            System.out.println("input the table you want ");
-            tableName = input.nextLine();
-        } else if (searchTerm.equals("TableSlot")) {
-            while (true) {
-                System.out.println("Input EARLY or LATE");
-                String userInput = input.nextLine();
-                try {
-                    timeSlot = TimeSlot.valueOf(userInput);
-                } catch (Exception e) {
-                    System.out.println("Invalid Input");
-                }
+            switch (searchTerm.toLowerCase(Locale.ROOT)) {
+                case "tablename":
+                    System.out.println("input the table you want ");
+                    tableName = input.nextLine();
+                    break;
+                case "tableslot":
+                    while (true) {
+                        System.out.println("Input EARLY or LATE");
+                        String userInput = input.nextLine();
+                        try {
+                            timeSlot = TimeSlot.valueOf(userInput);
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Invalid Input");
+                        }
+                    }
+                case "drink":
+                    System.out.println("Input new Drink name");
+                    drink = searchDrink(input.nextLine(), drinks);
+                    break;
+                case "amountofpeople":
+                    System.out.println("input new amount of people");
+                    amountOfPeople = input.nextInt();
+                    String Junk = input.nextLine();
+                    break;
+                case "day":
+                    System.out.println("What day you want");
+                    day = Days.valueOf(input.nextLine());
+                    break;
+                default:
+                    System.out.println("Invalid Search term");
+                    continue;
             }
-        } else if (searchTerm.equals("Drink")) {
-            System.out.println("Input new Drink name");
-            drink = searchDrink(input.nextLine(), drinks);
-        } else if (searchTerm.equals("amountOfPeople")) {
-            System.out.println("input new amount of people");
-            amountOfPeople = input.nextInt();
-            String Junk = input.nextLine();
-        } else if (searchTerm.equals("Day")) {
-            System.out.println("What day you want");
-            day = Days.valueOf(input.nextLine());
-        }
 
         tempTableSlot= new TableSlot(tableName,timeSlot,customer,drink,amountOfPeople,day);
-        if(searchIfTableSlotExists(tempTableSlot,tableSlots)==null){
-            writeTableSlotsToFile(tableSlots);
-            return tempTableSlot;
+            if(searchIfTableSlotExists(tempTableSlot,tableSlots)==null){
+                writeTableSlotsToFile(tableSlots);
+                return tempTableSlot;
+            }
+            else {
+                System.out.println("This reservation is the same as something else");
+            }
+
         }
-        return tempTableSlot;
     }
         //Show available tables either free or occupied
     public static void showAvailability(String availability) throws FileNotFoundException {
