@@ -21,18 +21,18 @@ import static edu.acg.kio.kiobookingsystem.functions.UserManagement.*;
 public class TableManagement {
 
     public static Table searchTable(String searchTerm,ArrayList<Table> array){
-        Table temp = null;
-        for(Table tb: array){
-            if(tb.getTableName().equals(searchTerm)) temp = tb;
+        Table temp = null; //initialize
+        for(Table tb: array){ //for loop, go in the array and for every table
+            if(tb.getTableName().equals(searchTerm)) temp = tb; //search if the name matches the search term
         }
         return temp;
     }
 
     public static TableSlot searchIfTableSlotExists(TableSlot ts,ArrayList<TableSlot> array){
-        TableSlot temp = null;
-        for(TableSlot tableSlot: array){
-            if (Objects.equals(tableSlot, ts)) {
-                temp = ts;
+        TableSlot temp = null; //initialize
+        for(TableSlot tableSlot: array){ //for every tableSlot in the array
+            if (Objects.equals(tableSlot, ts)) { //if tableSlot matches with ts
+                temp = ts; //put ts in temp
                 break;
             }
             else {
